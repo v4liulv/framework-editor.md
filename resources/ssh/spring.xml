@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--suppress SpringModelInspection -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:ws="http://jax-ws.dev.java.net/spring/core"
+       xmlns:wss="http://jax-ws.dev.java.net/spring/servlet"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+                            http://www.springframework.org/schema/context
+                            http://www.springframework.org/schema/context/spring-context-4.2.xsd
+                            http://jax-ws.dev.java.net/spring/core
+                            http://jax-ws.dev.java.net/spring/core.xsd
+                            http://jax-ws.dev.java.net/spring/servlet
+                            http://jax-ws.dev.java.net/spring/servlet.xsd">
+
+    <!-- 引入属性文件 -->
+    <context:property-placeholder location="classpath:config.properties" />
+
+    <!-- 自动扫描dao和service包(自动注入) -->
+    <context:component-scan base-package="
+    com.sinobest.*.*.dao,
+    com.sinobest.*.*.service,
+
+    com.sinobest.*.*.mvc.dao,
+    com.sinobest.*.*.mvc.service," />
+
+    <!-- spring JAX-WS  发布webservice -->
+    <!-- *************************************************************************************************** -->
+    <!-- 下面演示Spring提供的SimpleJaxWsServiceExporter的写法 -->
+    <!-- *************************************************************************************************** -->
+    <!-- SimpleJaxWsServiceExporter会自动搜索包中含有javax.jws.WebService注解的类,并将之发布为WebService -->
+    <!-- 这种方式可以直接向SIB中注入对象,因为这个WebService已被Spring所管理,详见本例中的HelloServiceImpl.java -->
+    <!-- value用于指明发布地址,不强制要求与Web应用地址相同,访问时的地址是'value'加上@WebService(serviceName='') -->
+    <!-- value="http://127.0.0.1:8088/mytest",则服务地址为http://127.0.0.1:8088/services/HelloService?wsdl -->
+    <!-- value="http://127.0.0.1:8088/mytest",则服务地址为http://127.0.0.1:8088/services/myHelloService?wsdl -->
+
+    <!-- baseAddress 的value地址以及端口号是自定义的,端口号不要为已使用过的 -->
+    <!--<bean class="org.springframework.remoting.jaxws.SimpleJaxWsServiceExporter">
+        <property name="baseAddress" value="http://localhost:8089/services/"/>
+    </bean>-->
+
+
+    <!-- 这种集成方式所发布的WebService是一种独立的WebService -->
+    <context:component-scan base-package="com.sinobest.framework.webservice.servers" />
+    <!-- test com.sinobest.framework.webservice -->
+    <wss:binding url="/services/test" >
+        <wss:service>
+            <ws:service bean="#exampleService" />
+        </wss:service>
+    </wss:binding>
+
+    <!-- Neo4j com.sinobest.webservice -->
+    <!-- <wss:binding url="/services/neo4j" >
+         <wss:service>
+             <ws:service bean="#neo4jServices" />
+         </wss:service>
+     </wss:binding>-->
+
+</beans>

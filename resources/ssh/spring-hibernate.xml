@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+                            http://www.springframework.org/schema/tx
+                            http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+                            http://www.springframework.org/schema/aop
+                            http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+
+    <!-- JNDI(通过Tomcat、Weblogic)方式配置数据源 -->
+    <!-- <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+          <property name="jndiName" value="${jndiName}"></property>
+    </bean> -->
+
+    <!--配置数据源-本地化配置方式，不能走数据中间件的方式 -->
+    <!-- destroy-method=”close”的作用就是当数据库连接不使用的时候,就把该连接重新放到数据池中,方便下次使用调用.很关键的一个元素。 -->
+    <bean name="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="jdbcUrl" value="${jdbc_url}" />
+        <property name="user" value="${jdbc_username}" />
+        <property name="password" value="${jdbc_password}" />
+        <property name="driverClass" value="${driver_class_name}" />
+        <property name="initialPoolSize" value="1" /> <!-- 初始化连接大小 -->
+        <property name="maxPoolSize" value="20" /><!-- 连接池最大使用连接数量 -->
+        <property name="idleConnectionTestPeriod" value="20" /><!-- 连接池最大空闲 -->
+        <property name="minPoolSize" value="10" /> <!-- 连接池最小空闲 -->
+        <property name="checkoutTimeout" value="1000" /><!-- 获取连接最大等待时间 -->
+        <property name="acquireIncrement" value="3"/>
+        <property name="acquireRetryAttempts" value="30"/>
+        <property name="automaticTestTable" value="dual" />
+        <property name="breakAfterAcquireFailure" value="false" />
+        <property name="autoCommitOnClose" value="true" />
+        <property name="testConnectionOnCheckin" value="true" />
+        <property name="acquireRetryDelay" value="1000" /><!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="maxIdleTime" value="60" />  <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+    </bean>
+
+    <!--jdbcService服务对象-->
+    <bean id="appJdbcService" class="com.sinobest.framework.utils.JdbcService">
+        <property name="dataSource" ref="dataSource" />
+        <property name="lobHandler" ref="appDefLobHandler" />
+    </bean>
+
+    <!-- 大对象处理器  -->
+    <bean id="appDefLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" />
+
+    <!-- 配置hibernate session工厂 -->
+    <!--<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">-->
+
+    <bean id="sessionFactoryOracle" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="connection.autocommit">${connection.autocommit}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+                <prop key="hibernate.connection.url">${jdbc_url}</prop>
+                <prop key="hibernate.connection.driver_class">${driver_class_name}</prop>
+            </props>
+        </property>
+        <property name="packagesToScan"> <!--自动扫描注解方式配置的hibernate类文件-->
+            <list>
+                <!-- 字典 -->
+                <value>com.sinobest.framework.dictionaries.mvc.domain</value>
+                <!-- mvctest -->
+                <value>com.sinobest.framework.test.mvc.domain</value>
+                <value>com.sinobest.editor.mvc.domain</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 配置Hibernate事务管理器 > -->
+    <bean id="transactionManagerOracle" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactoryOracle" />
+    </bean>
+
+    <!-- 配置事务异常封装 -->
+    <!--<bean id="persistenceExceptionTranslationPostProcessor"
+          class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+     -->
+
+    <!-- 事务方式二 注解方式配置事物 -->
+    <!--<tx:annotation-driven transaction-manager="transactionManager" />-->
+
+    <!-- 事务配置方式二： 拦截器方式配置事物 -->
+    <!-- <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+         <tx:attributes>
+             <tx:method name="add*" />
+             <tx:method name="save*" />
+             <tx:method name="update*" />
+             <tx:method name="modify*" />
+             <tx:method name="edit*" />
+             <tx:method name="delete*" />
+             <tx:method name="remove*" />
+             <tx:method name="repair" />
+             <tx:method name="deleteAndRepair" />
+             <tx:method name="get*" propagation="SUPPORTS" />
+             <tx:method name="find*" propagation="SUPPORTS" />
+             <tx:method name="load*" propagation="SUPPORTS" />
+             <tx:method name="search*" propagation="SUPPORTS" />
+             <tx:method name="datagrid*" propagation="SUPPORTS" />
+             <tx:method name="*" propagation="SUPPORTS" />
+         </tx:attributes>
+     </tx:advice>
+     -->
+
+    <!-- Spring AOP 配置-->
+    <!--
+    <aop:config>
+        <aop:pointcut id="transactionPointcut" expression="execution(* com.sinobest.gxksh.framework.service..*Impl.*(..))" />
+        <aop:advisor advice-ref="transactionAdvice"  pointcut-ref="transactionPointcut" />
+    </aop:config>
+    -->
+
+</beans>

@@ -66,6 +66,41 @@
             <version>2.6</version>
         </dependency>
 
+        <!-- framework-ssh -->
+        <dependency>
+            <!--
+                <groupId>com.sinobest.kshfx</groupId>
+                <artifactId>kshfx-ssh</artifactId>
+                <version>${project.version}</version>
+            -->
+            <groupId>com.sinobest</groupId>
+            <artifactId>framework-ssh</artifactId>
+            <version>1.0.0</version>
+
+            <exclusions>
+                <exclusion>
+                    <artifactId>jackson-mapper-asl</artifactId>
+                    <groupId>org.codehaus.jackson</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>geronimo-stax-api_1.0_spec</artifactId>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>woodstox-core-asl</artifactId>
+                    <groupId>org.codehaus.woodstox</groupId>
+                </exclusion>
+                <!-- <exclusion>
+                     <artifactId>jaxws-rt</artifactId>
+                     <groupId>com.sun.xml.ws</groupId>
+                 </exclusion>-->
+                <exclusion>
+                    <artifactId>axis2-saaj</artifactId>
+                    <groupId>org.apache.axis2</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -79,7 +114,8 @@
             <resource>
                 <directory>resources</directory>
                 <includes>
-                    <include>*</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
                 </includes>
             </resource>
             <resource>
