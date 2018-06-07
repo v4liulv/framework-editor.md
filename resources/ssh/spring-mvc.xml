@@ -13,12 +13,7 @@
 
     <!-- 注解扫描包 -->
     <!-- 扫描web包，应用Spring的注解 @Controller -->
-    <context:component-scan base-package="com.sinobest.*.*.controller" />
-    <!-- 扫描业务层service实现类 -->
-    <context:component-scan base-package="com.sinobest.*.*.service" />
-    <context:component-scan base-package="com.sinobest.*.*.mvc.service" />
-    <context:component-scan base-package="com.sinobest.*.*.dao" />
-    <context:component-scan base-package="com.sinobest.*.*.mvc.dao" />
+    <context:component-scan base-package="com.sinobest.editor.mvc.controller" />
     <!-- 开启mvc注解 -->
     <mvc:annotation-driven />
 
@@ -31,6 +26,8 @@
     <mvc:resources location="/data/" mapping="/data/**"/>
     <mvc:resources location="/html/" mapping="/html/**"/>
     <mvc:resources location="/ws/" mapping="/ws/**"/>
+    <mvc:resources location="/docs/" mapping="/docs/**"/>
+    <mvc:resources location="/plug/" mapping="/plug/**"/>
 
     <!-- 视图解析器 -->
     <bean id="viewResolver"

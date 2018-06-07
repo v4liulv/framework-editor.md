@@ -1,7 +1,7 @@
 package com.sinobest.editor.mvc.service;
 
-import com.sinobest.framework.base.service.BaseService;
 import com.sinobest.editor.mvc.domain.BEditorAbstract;
+import com.sinobest.framework.base.service.BaseService;
 
 /**
  * @author liulv

@@ -47,8 +47,6 @@
     <bean id="appDefLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" />
 
     <!-- 配置hibernate session工厂 -->
-    <!--<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">-->
-
     <bean id="sessionFactoryOracle" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="hibernateProperties">
@@ -64,14 +62,17 @@
         </property>
         <property name="packagesToScan"> <!--自动扫描注解方式配置的hibernate类文件-->
             <list>
-                <!-- 字典 -->
-                <value>com.sinobest.framework.dictionaries.mvc.domain</value>
-                <!-- mvctest -->
-                <value>com.sinobest.framework.test.mvc.domain</value>
+                <value>com.sinobest.framework.base.domain</value>
                 <value>com.sinobest.editor.mvc.domain</value>
+                <value>com.sinobest.framework.dictionaries.mvc.domain</value>
             </list>
         </property>
     </bean>
+
+    <!-- HibernateTemplate 提供 BaseDaoImpl类  -->
+    <!--<bean id="hibernateTemplateOracle" class="org.springframework.orm.hibernate5.HibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactoryOracle" />
+    </bean>-->
 
     <!-- 配置Hibernate事务管理器 > -->
     <bean id="transactionManagerOracle" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
@@ -80,38 +81,36 @@
 
     <!-- 配置事务异常封装 -->
     <!--<bean id="persistenceExceptionTranslationPostProcessor"
-          class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-     -->
+          class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />-->
 
     <!-- 事务方式二 注解方式配置事物 -->
-    <!--<tx:annotation-driven transaction-manager="transactionManager" />-->
+    <!--<tx:annotation-driven transaction-manager="transactionManagerOracle" />-->
 
     <!-- 事务配置方式二： 拦截器方式配置事物 -->
-    <!-- <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
-         <tx:attributes>
-             <tx:method name="add*" />
-             <tx:method name="save*" />
-             <tx:method name="update*" />
-             <tx:method name="modify*" />
-             <tx:method name="edit*" />
-             <tx:method name="delete*" />
-             <tx:method name="remove*" />
-             <tx:method name="repair" />
-             <tx:method name="deleteAndRepair" />
-             <tx:method name="get*" propagation="SUPPORTS" />
-             <tx:method name="find*" propagation="SUPPORTS" />
-             <tx:method name="load*" propagation="SUPPORTS" />
-             <tx:method name="search*" propagation="SUPPORTS" />
-             <tx:method name="datagrid*" propagation="SUPPORTS" />
-             <tx:method name="*" propagation="SUPPORTS" />
-         </tx:attributes>
-     </tx:advice>
-     -->
+   <!-- <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="add*" />
+            <tx:method name="save*" />
+            <tx:method name="update*" />
+            <tx:method name="modify*" />
+            <tx:method name="edit*" />
+            <tx:method name="delete*" />
+            <tx:method name="remove*" />
+            <tx:method name="repair" />
+            <tx:method name="deleteAndRepair" />
+            <tx:method name="get*" propagation="SUPPORTS" />
+            <tx:method name="find*" propagation="SUPPORTS" />
+            <tx:method name="load*" propagation="SUPPORTS" />
+            <tx:method name="search*" propagation="SUPPORTS" />
+            <tx:method name="datagrid*" propagation="SUPPORTS" />
+            <tx:method name="*" propagation="SUPPORTS" />
+        </tx:attributes>
+    </tx:advice>
+    -->
 
     <!-- Spring AOP 配置-->
-    <!--
-    <aop:config>
-        <aop:pointcut id="transactionPointcut" expression="execution(* com.sinobest.gxksh.framework.service..*Impl.*(..))" />
+    <!--<aop:config>
+        <aop:pointcut id="transactionPointcut" expression="execution(* com.sinobest.kshfx.framework..*Impl.*(..))" />
         <aop:advisor advice-ref="transactionAdvice"  pointcut-ref="transactionPointcut" />
     </aop:config>
     -->

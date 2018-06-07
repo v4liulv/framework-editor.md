@@ -5,25 +5,31 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:ws="http://jax-ws.dev.java.net/spring/core"
        xmlns:wss="http://jax-ws.dev.java.net/spring/servlet"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                             http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
                             http://www.springframework.org/schema/context
                             http://www.springframework.org/schema/context/spring-context-4.2.xsd
+                            http://www.springframework.org/schema/tx
+                            http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
                             http://jax-ws.dev.java.net/spring/core
                             http://jax-ws.dev.java.net/spring/core.xsd
                             http://jax-ws.dev.java.net/spring/servlet
                             http://jax-ws.dev.java.net/spring/servlet.xsd">
 
     <!-- 引入属性文件 -->
-    <context:property-placeholder location="classpath:config.properties" />
+    <context:property-placeholder location="classpath:ssh/config.properties" />
 
     <!-- 自动扫描dao和service包(自动注入) -->
-    <context:component-scan base-package="
-    com.sinobest.*.*.dao,
-    com.sinobest.*.*.service,
+    <context:component-scan base-package="com.sinobest.framework.base.dao"/>
+    <context:component-scan base-package="com.sinobest.framework.base.service"/>
+    <context:component-scan base-package="com.sinobest.framework.dictionaries.mvc.dao"/>
+    <context:component-scan base-package="com.sinobest.framework.dictionaries.mvc.service"/>
+    <context:component-scan base-package="com.sinobest.editor.mvc.dao"/>
+    <context:component-scan base-package="com.sinobest.editor.mvc.service"/>
 
-    com.sinobest.*.*.mvc.dao,
-    com.sinobest.*.*.mvc.service," />
+    <!-- 支持事务注解的(@Transactional)  -->
+    <tx:annotation-driven transaction-manager="transactionManagerOracle" proxy-target-class="true" />
 
     <!-- spring JAX-WS  发布webservice -->
     <!-- *************************************************************************************************** -->
@@ -42,19 +48,19 @@
 
 
     <!-- 这种集成方式所发布的WebService是一种独立的WebService -->
-    <context:component-scan base-package="com.sinobest.framework.webservice.servers" />
-    <!-- test com.sinobest.framework.webservice -->
+   <!-- <context:component-scan base-package="com.sinobest.kshfx.webservice.servers" />
+    &lt;!&ndash; test com.sinobest.kshfx.webservice &ndash;&gt;
     <wss:binding url="/services/test" >
         <wss:service>
             <ws:service bean="#exampleService" />
         </wss:service>
-    </wss:binding>
+    </wss:binding>-->
 
-    <!-- Neo4j com.sinobest.webservice -->
-    <!-- <wss:binding url="/services/neo4j" >
-         <wss:service>
-             <ws:service bean="#neo4jServices" />
-         </wss:service>
-     </wss:binding>-->
+    <!-- Neo4j com.sinobest.kshfx.webservice -->
+   <!-- <wss:binding url="/services/neo4j" >
+        <wss:service>
+            <ws:service bean="#neo4jServices" />
+        </wss:service>
+    </wss:binding>-->
 
 </beans>

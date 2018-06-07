@@ -3,6 +3,7 @@ package com.sinobest.editor.mvc.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.sinobest.editor.mvc.domain.BEditorAbstract;
 import com.sinobest.editor.mvc.service.BEditorAbstractService;
+import com.sinobest.editor.mvc.service.BEditorEditService;
 import com.sinobest.framework.dictionaries.mvc.domain.Dictionaries;
 import com.sinobest.framework.dictionaries.mvc.service.DictionariesService;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,10 @@ import java.util.Random;
 @Controller
 @RequestMapping("/editor")
 public class EditorController {
+
+    @Deprecated
+    @Resource(name = "BEditorEditService")
+    private BEditorEditService bEditorEditService;
 
     @Resource(name = "BEditorAbstractService")
     private BEditorAbstractService bEditorAbstractService;
