@@ -27,3 +27,13 @@ hs_err_pid*
 .idea/vcs.xml
 .idea/misc.xml
 .idea/workspace.xml
+.idea/compiler.xml
+.idea/dbnavigator.xml
+.idea/encodings.xml
+.idea/framework-editor.md.iml
+.idea/modules.xml
+.idea/sbt.xml
+java-test/
+java/
+resources/
+src/
