@@ -1,0 +1,281 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+          http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.sinobest</groupId>
+    <artifactId>framework-editor</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <name>framework-editor-${project.version}</name>
+    <url>http://maven.apache.org</url>
+    <description>Java框架基础</description>
+    <inceptionYear>2018年6月7日</inceptionYear>
+    <licenses/>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jdk-version>1.8</jdk-version>
+        <maven.version>3.3.9</maven.version>
+        <github.global.server>github</github.global.server>
+
+        <currentYear>2018</currentYear>
+        <ipprefix>127.0.1.</ipprefix>
+        <test.groups>unit</test.groups>
+        <ccm.java.home>none</ccm.java.home>
+        <main.basedir>${project.basedir}</main.basedir>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>alibaba-opensource</id>
+            <name>local private alibaba-opensource</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <!-- 本地版本库 -->
+        <repository>
+            <id>maven-local</id>
+            <url>D:\libs\maven\</url>
+        </repository>
+
+        <!-- 我自己的GitHub版本库 -->
+        <repository>
+            <id>maven-repo-master</id>
+            <url>https://raw.githubusercontent.com/v4liulv/maven-repo/master</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <!--maven打包编译java工具相关jar-->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.6</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>framework-editor-${project.version}</finalName>
+        <!-- 默认情况下maven只打包src/main/resource和src/main/java下的资源，通过resources-resource-directory方式配置打包的资源 -->
+        <sourceDirectory>java</sourceDirectory>
+        <testSourceDirectory>java-test</testSourceDirectory>
+
+        <!--maven打包时如何把包下面的非java文件配置文件也包含，通过resources-resource下配置directory和includes实现 -->
+        <resources>
+            <resource>
+                <directory>resources</directory>
+                <includes>
+                    <include>*</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>java</directory>
+                <includes>
+                    <include>**/*.txt</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.groovy</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.dtd</include>
+                </includes>
+            </resource>
+        </resources>
+
+        <plugins>
+            <!-- Maven github 可选 -->
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.12</version>
+                <configuration>
+                    <message>Maven artifacts for ${project.version}</message>
+                    <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
+                    <branch>refs/heads/master</branch>
+                    <includes>
+                        <include>**</include>
+                    </includes>
+                    <!-- <path>com.sinobest.kshfx</path>-->
+                    <!-- 是否与当前树合并，或者完全替换提交指向的树, 默认为false-->
+                    <merge>true</merge>
+                    <!-- 是否强制进行一个ref更新，默认情况下只会快速前进 -->
+                    <force>true</force>
+                    <!-- 在该站点的根目录下是否总是创造一个.nojekyll文件将。如果您的站点包含任何以下划线开头的文件夹，那么该设置应该启用。-->
+                    <noJekyll>true</noJekyll>
+                    <!-- 对应github上创建的仓库名称 name -->
+                    <repositoryName>maven-repo</repositoryName>
+                    <!-- github 仓库所有者 -->
+                    <repositoryOwner>v4liulv</repositoryOwner>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- （可选，根据github是否选择而选择）Maven deploy 结合上面的Maven-github将本地工程的部署到远程Maven Github仓库-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+                <configuration>
+                    <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo
+                    </altDeploymentRepository>
+                </configuration>
+            </plugin>
+            <!-- Maven Enforcer Plugin 定义一些必须遵守的配置 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.4.1</version>
+                <executions>
+                    <execution>
+                        <id>enforce-versions</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>${maven.version}</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>${java.version}</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Maven Java 编译-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <source>${jdk-version}</source>
+                    <target>${jdk-version}</target>
+                </configuration>
+            </plugin>
+            <!-- Maven 生成sources源码包的插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>create-source-jar</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                            <goal>test-jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Maven 生成javadoc文档包的插件，解决报错添加-Xdoclint:none-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.2</version>
+                <configuration>
+                    <aggregate>true</aggregate>
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- build-helper-maven-plugin插件来支持自定义的项目目录结构(相对于Maven默认目录结构来说)。 -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
+            <!-- maven-jar-plugin 默认的打包插件-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <!-- Maven 生成全部的依赖包到target\lib目录下 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <!-- ${project.build.directory}为Maven内置变量，缺省为target -->
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <excludeTransitive>false</excludeTransitive><!-- excludeTransitive表示是否不包含间接依赖的包  -->
+                            <stripVersion>false</stripVersion><!-- stripVersion表示是否复制的jar文件去掉版本信息 -->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Maven install 将项目输出构件安装到本地仓库  -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.2</version>
+            </plugin>
+            <!-- mvn clean命令清除target里的内容的同时，也清除work,checkpoint,lib_managed等下的相应目录 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>work</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>checkpoint</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>lib_managed</directory>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
