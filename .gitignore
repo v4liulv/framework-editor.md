@@ -33,7 +33,3 @@ hs_err_pid*
 .idea/framework-editor.md.iml
 .idea/modules.xml
 .idea/sbt.xml
-java-test/
-java/
-resources/
-src/
