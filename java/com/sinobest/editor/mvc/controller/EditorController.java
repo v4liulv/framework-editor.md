@@ -6,6 +6,8 @@ import com.sinobest.editor.mvc.service.BEditorAbstractService;
 import com.sinobest.editor.mvc.service.BEditorEditService;
 import com.sinobest.framework.dictionaries.mvc.domain.Dictionaries;
 import com.sinobest.framework.dictionaries.mvc.service.DictionariesService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,6 +36,8 @@ import java.util.Random;
 @Controller
 @RequestMapping("/editor")
 public class EditorController {
+
+    private Logger logger = LoggerFactory.getLogger(EditorController.class);
 
     @Deprecated
     @Resource(name = "BEditorEditService")
@@ -185,14 +189,17 @@ public class EditorController {
      * @param article_type    文章类别对应的dictionaries字典表KIND=ARTICLE_TYPE
      * @param article_title   文章标题
      * @param article_content 文章内容
-     * @param request         HttpServletRequest
-     * @param response        HttpServletResponse
+     * @param article_pdf     文章PDF的URL地址
      * @return 返回保存文章到后台数据库的结果信息
-     * @throws Exception 抛出异常
      */
     @RequestMapping(value = "/save")
     @ResponseBody
-    public JSONObject editorSave(@RequestParam(value = "systemid", required = true) String systemid, @RequestParam(value = "document_type", required = true) Long document_type, @RequestParam(value = "article_type", required = true) Long article_type, @RequestParam(value = "article_title", required = true) String article_title, @RequestParam(value = "article_content", required = true) String article_content, @RequestParam(value = "article_pdf", required = true) String article_pdf, HttpServletRequest request, HttpServletResponse response) {
+    public JSONObject editorSave(@RequestParam(value = "systemid", required = false) String systemid,
+                                 @RequestParam(value = "document_type") Long document_type,
+                                 @RequestParam(value = "article_type") Long article_type,
+                                 @RequestParam(value = "article_title") String article_title,
+                                 @RequestParam(value = "article_content") String article_content,
+                                 @RequestParam(value = "article_pdf", required = false) String article_pdf) {
 
         JSONObject res = new JSONObject();
         try {
@@ -224,7 +231,8 @@ public class EditorController {
             bEditorAbstract.setArticleType(article_type);
             bEditorAbstract.setArticleTitle(article_title);
             bEditorAbstract.setArticleContent(article_content);
-            System.out.println("article_pdf = " + article_pdf);
+            logger.warn("{} save article_pdf = {}", article_title, article_pdf);
+
             if (null != article_pdf) {
                 bEditorAbstract.setArticlePdf(article_pdf);
             }
@@ -237,6 +245,7 @@ public class EditorController {
             } else {
                 bEditorAbstractService.save(bEditorAbstract);
             }
+            logger.info("{} Save Succession. ", article_title);
             res.put("data", "保存成功!");
             res.put("status", 1);
         } catch (Exception e) {

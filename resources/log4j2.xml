@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="OFF" monitorInterval="1800">
     <properties>
+        <!--  配置日志文件输出目录，此配置将日志输出到tomcat根目录下的指定文件夹  -->
         <property name="LOG_HOME">/WEB-INF/logs</property>
         <property name="FILE_NAME">finance-pay</property>
     </properties>
 
 
     <Appenders>
+        <!--这个输出控制台的配置，这里输出除了warn和error级别的信息到System.out-->
         <Console name="Console" target="SYSTEM_OUT">
+            <!-- 控制台只输出level及以上级别的信息(onMatch),其他的直接拒绝(onMismatch)
+               优先级，即DEBUG，INFO，WARN，ERROR，
+           -->
+            <ThresholdFilter level="INFO" onMatch="DENY" onMismatch="ACCEPT"/>
+            <!-- 输出日志的格式 -->
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
         </Console>
 
@@ -34,5 +41,13 @@
             <!-- 这里是输入到控制台-->
             <AppenderRef ref="Console" />
         </Root>
+
+        <!-- 第三方日志系统 -->
+        <logger name="org.springframework.core" level="info"/>
+        <logger name="org.springframework.beans" level="info"/>
+        <logger name="org.springframework.context" level="info"/>
+        <logger name="org.springframework.web" level="info"/>
+        <logger name="org.jboss.netty" level="warn"/>
+        <logger name="org.apache.http" level="warn"/>
     </Loggers>
 </Configuration>

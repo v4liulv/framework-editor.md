@@ -48,15 +48,14 @@
 
 
     <!-- 这种集成方式所发布的WebService是一种独立的WebService -->
-   <!-- <context:component-scan base-package="com.sinobest.kshfx.webservice.servers" />
-    &lt;!&ndash; test com.sinobest.kshfx.webservice &ndash;&gt;
+   <context:component-scan base-package="com.sinobest.framework.webservice.servers" />
     <wss:binding url="/services/test" >
         <wss:service>
             <ws:service bean="#exampleService" />
         </wss:service>
-    </wss:binding>-->
+    </wss:binding>
 
-    <!-- Neo4j com.sinobest.kshfx.webservice -->
+    <!-- Neo4j com.sinobest.framework.webservice -->
    <!-- <wss:binding url="/services/neo4j" >
         <wss:service>
             <ws:service bean="#neo4jServices" />

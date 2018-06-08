@@ -98,7 +98,7 @@ $(function () {
                     }
                 },
                 error: function () {
-                    alert("发生异常，请重试！");
+                    alert("submit发生异常，请重试！");
                 }
             });
 
@@ -144,7 +144,7 @@ $(function () {
                     }
                 },
                 error: function () {
-                    alert("发生异常，请重试！");
+                    alert("save调用发生异常，请重试！");
                 }
             });
 
