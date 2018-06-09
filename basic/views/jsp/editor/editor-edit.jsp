@@ -47,7 +47,7 @@
 
     <!--引入样式文件-->
     <link rel="stylesheet" href="<%=basePath%>/plug/EditorMD/css/editormd.css"/>
-    <link rel="stylesheet" href="<%=basePath%>/plug/EditorMD/css/editormd.preview.css"/>
+    <%--<link rel="stylesheet" href="<%=basePath%>/plug/EditorMD/css/editormd.preview.css"/>--%>
     <link rel="shortcut icon" href="<%=basePath%>images/logo/editor/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="<%=basePath%>/css/editor/editor-edit.css"/>
     <!--引入js文件-->
@@ -60,6 +60,7 @@
     <script src="<%=basePath%>/plug/EditorMD/lib/sequence-diagram.min.js"></script>
     <script src="<%=basePath%>/plug/EditorMD/lib/flowchart.min.js"></script>
     <script src="<%=basePath%>/plug/EditorMD/lib/jquery.flowchart.min.js"></script>
+
     <script src="<%=basePath%>/js/editor/editor-edit.js"></script>
     <!--js开始-->
     <script type="text/javascript">
@@ -73,48 +74,54 @@
 </head>
 
 <body>
-<div class="header">
-</div>
+<div class="header"></div>
 <div class="centre" style="">
-    <p id="systemid" class="systemid" style="display:none;"><%=systemid%></p>
     <div class="editormd_essay_title" style="">
-        <p class="subtit">文档类型:</p>
-        <select id="document_type" style="" title="">
-            <%
-                //循环editor 类型
-                if (bEDITOREDITList_DOCUMENT_TYPE != null && bEDITOREDITList_DOCUMENT_TYPE.size() > 0) {
+        <p id="systemid" class="systemid" style="display:none;"><%=systemid%></p>
+        <div class="title">
+            <p class="subtit">类型:</p>
+            <select id="document_type" style="" title="">
+                <%
                     //循环editor 类型
-                    for (Dictionaries dictionaries : bEDITOREDITList_DOCUMENT_TYPE) {
-                        String editorType = dictionaries.getCode();
-                        String editorTypeValue = dictionaries.getValue();
-            %>
-            <option value="<%=editorType%>"><%=editorTypeValue%></option>
-            <%
+                    if (bEDITOREDITList_DOCUMENT_TYPE != null && bEDITOREDITList_DOCUMENT_TYPE.size() > 0) {
+                        //循环editor 类型
+                        for (Dictionaries dictionaries : bEDITOREDITList_DOCUMENT_TYPE) {
+                            String editorType = dictionaries.getCode();
+                            String editorTypeValue = dictionaries.getValue();
+                %>
+                <option value="<%=editorType%>"><%=editorTypeValue%></option>
+                <%
+                        }
                     }
-                }
-            %>
-        </select>
+                %>
+            </select>
+        </div>
 
-        <p class="subtit">文章标题</p>
-        <select id="selType" style="" title="">
-            <%
-                if (dictionariesList != null && dictionariesList.size() > 0) {
-                    //循环editor 类型
-                    for (Dictionaries dictionaries : dictionariesList) {
-                        String editorType = dictionaries.getCode();
-                        String editorTypeValue = dictionaries.getValue();
-            %>
-            <option value="<%=editorType%>"><%=editorTypeValue%>
-            </option>
-            <%
+        <div class="title">
+            <p class="subtit">标题:</p>
+            <select id="selType" style="" title="">
+                <%
+                    if (dictionariesList != null && dictionariesList.size() > 0) {
+                        //循环editor 类型
+                        for (Dictionaries dictionaries : dictionariesList) {
+                            String editorType = dictionaries.getCode();
+                            String editorTypeValue = dictionaries.getValue();
+                %>
+                <option value="<%=editorType%>"><%=editorTypeValue%>
+                </option>
+                <%
+                        }
                     }
-                }
-            %>
-        </select>
-        <input id="txtTitle" style="" maxlength="100" type="text" value="<%=articleTitle %>" title=""/>
+                %>
+            </select>
+            <input id="txtTitle" style="" maxlength="100" type="text" value="<%=articleTitle %>" title=""/>
+        </div>
 
-        <p class="subtit">文章PDF路径(可选)</p>
-        <input id="txtPDF" style="" maxlength="100" type="text" value="<%=abstractPdf %>" title=""/>
+        <div class="title_pdf">
+            <p class="subtit">PDF路径(可选):</p>
+            <input id="txtPDF" style="" maxlength="100" type="text" value="<%=abstractPdf %>" title=""/>
+        </div>
+
 
     </div>
     <p class="subtit">文章内容</p>

@@ -5,13 +5,10 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:ws="http://jax-ws.dev.java.net/spring/core"
        xmlns:wss="http://jax-ws.dev.java.net/spring/servlet"
-       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                             http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
                             http://www.springframework.org/schema/context
                             http://www.springframework.org/schema/context/spring-context-4.2.xsd
-                            http://www.springframework.org/schema/tx
-                            http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
                             http://jax-ws.dev.java.net/spring/core
                             http://jax-ws.dev.java.net/spring/core.xsd
                             http://jax-ws.dev.java.net/spring/servlet
@@ -27,9 +24,6 @@
     <context:component-scan base-package="com.sinobest.framework.dictionaries.mvc.service"/>
     <context:component-scan base-package="com.sinobest.editor.mvc.dao"/>
     <context:component-scan base-package="com.sinobest.editor.mvc.service"/>
-
-    <!-- 支持事务注解的(@Transactional)  -->
-    <tx:annotation-driven transaction-manager="transactionManagerOracle" proxy-target-class="true" />
 
     <!-- spring JAX-WS  发布webservice -->
     <!-- *************************************************************************************************** -->

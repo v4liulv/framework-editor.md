@@ -90,7 +90,6 @@ public class EditorController {
         if (bEDITOREDITList_DOCUMENT_TYPE != null && bEDITOREDITList_DOCUMENT_TYPE.size() > 0) {
             request.setAttribute("bEDITOREDITList_DOCUMENT_TYPE", bEDITOREDITList_DOCUMENT_TYPE);
         }
-
         request.setAttribute("bEditorAbstract", bEditorAbstract);
         return "editor/editor-edit";
     }

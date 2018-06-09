@@ -1,40 +1,56 @@
-//监控快捷键Ctrl S 保存，但是其他按键都没法进行编辑器编辑
-
-/*function keyDown(e){
-    e.preventDefault();
-    var currKey=0, e=e||event||window.event;
-    currKey = e.keyCode||e.which||e.charCode;
-    if(currKey === 83 && (e.ctrlKey||e.metaKey)){
-        $('#submit').click();
-        return false;
-    }
-}
-document.onkeydown = keyDown;*/
-
-
+var testEditor;
 $(function () {
-    var testEditor = editormd("my-editormd", {//注意1：这里的就是上面的DIV的id属性值
+    testEditor = editormd("my-editormd", {//注意1：这里的就是上面的DIV的id属性值
         width: "100%",
-        height: 650,
+        height: 750,
         htmlDecode: "style,script,iframe",
-        syncScrolling: "single",
+        //syncScrolling: "single",
+        syncScrolling: false,
         path: "/plug/EditorMD/lib/",//注意2：你的路径
-        saveHTMLToTextarea: true,//注意3：这个配置，方便post提交表单 开启保存HTML文件
-
+        saveHTMLToTextarea: true,//保存 HTML 到 Textarea，注意3：这个配置，方便post提交表单 开启保存HTML文件
+        //autoHeight : true,//自动高度
+        watch: false,                // 关闭实时预览
         emoji: true,//emoji表情，默认关闭
         taskList: true,
         tocm: true, // Using [TOCM]
         tex: true,// 开启科学公式TeX语言支持，默认关闭
         flowChart: true,//开启流程图支持，默认关闭
         sequenceDiagram: true,//开启时序/序列图支持，默认关闭,
-
-        dialogLockScreen: false,//设置弹出层对话框不锁屏，全局通用，默认为true
-        dialogShowMask: false,//设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+      /*  dialogLockScreen: false,//设置弹出层对话框不锁屏，全局通用，默认为true
+        dialogShowMask: true,//设置弹出层对话框显示透明遮罩层，全局通用，默认为true
         dialogDraggable: false,//设置弹出层对话框不可拖动，全局通用，默认为true
         dialogMaskOpacity: 0.4, //设置透明遮罩层的透明度，全局通用，默认值为0.1
-        dialogMaskBgColor: "#000",//设置透明遮罩层的背景颜色，全局通用，默认为#fff
-
+        dialogMaskBgColor: "#000",//设置透明遮罩层的背景颜色，全局通用，默认为#fff*/
         codeFold: true,
+        searchReplace: true,
+
+        /**快捷键设置**/
+        disabledKeyMaps: [
+            "Ctrl-B", "F11", "F10"  // 禁用一些默认的键盘快捷键
+        ],
+        onload: function () {
+            var keyMap = {
+                "Ctrl-S": function (cm) {
+                    save(false);
+                },
+                "Ctrl-A": function (cm) { // default Ctrl-A selectAll
+                    // custom
+                    //alert("Ctrl+A");
+                    cm.execCommand("selectAll");
+                }
+            };
+
+            // setting signle key
+            var keyMap2 = {
+                "Ctrl-T": function (cm) {
+                    alert("Ctrl+T");
+                }
+            };
+
+            this.addKeyMap(keyMap);
+            this.addKeyMap(keyMap2);
+            this.removeKeyMap(keyMap2);  // remove signle key
+        },
 
         /**上传图片相关配置如下*/
         imageUpload: true,
@@ -61,47 +77,12 @@ $(function () {
     //testEditor.getMarkdown();//获取 Markdown 源码
     //testEditor.getHTML();// 获取 Textarea 保存的 HTML 源码
     //testEditor.getPreviewedHTML();// 获取预览窗口里的 HTML，在开启 watch 且没有开启 saveHTMLToTextarea 时使用
-
     /**
      * 点击submit通过ajax提交editor编辑的内容提交到后台处理
      */
     $("#submit").click(
         function () {
-            var systemid = $("#systemid").html().trim();
-            var document_type = $("#document_type").val().trim();
-            var article_type = $("#selType").val().trim();
-            var article_title = $("#txtTitle").val().trim();
-            var my_editormd_markdown_doc = testEditor.getMarkdown();
-            var article_pdf = $("#txtPDF").val().trim();
-            var data = {
-                systemid: systemid,
-                document_type: document_type,
-                article_type: article_type,
-                article_title: article_title,
-                article_content: my_editormd_markdown_doc,
-                article_pdf: article_pdf
-            };
-
-            $.ajax({
-                url: "/editor/save",
-                type: "post",
-                dataType: "json",
-                data: data,
-                success: function (result) {
-                    //result是服务器返回的json结果
-                    if (result.status) {
-                        alert(result.data);
-                        //window.location.href = "/editor/docs/list";
-                        //window.location.href = "/editor/edit?title=" + article_title;
-                    } else {
-                        alert(result.message);
-                    }
-                },
-                error: function () {
-                    alert("submit发生异常，请重试！");
-                }
-            });
-
+            save(false);
         }
     );
 
@@ -114,40 +95,47 @@ $(function () {
 
     $("#submit_close").click(
         function () {
-            var systemid = $("#systemid").html().trim();
-            var document_type = $("#document_type").val().trim();
-            var article_type = $("#selType").val().trim();
-            var article_title = $("#txtTitle").val().trim();
-            var my_editormd_markdown_doc = testEditor.getMarkdown();
-            var article_pdf = $("#txtPDF").val().trim();
-            var data = {
-                systemid: systemid,
-                document_type: document_type,
-                article_type: article_type,
-                article_title: article_title,
-                article_content: my_editormd_markdown_doc,
-                article_pdf: article_pdf
-            };
+            save(true);
+        }
+    );
 
-            $.ajax({
-                url: "/editor/save",
-                type: "post",
-                dataType: "json",
-                data: data,
-                success: function (result) {
-                    //result是服务器返回的json结果
-                    if (result.status) {
-                        alert(result.data);
+    function save(isClose) {
+        var systemid = $("#systemid").html().trim();
+        var document_type = $("#document_type").val().trim();
+        var article_type = $("#selType").val().trim();
+        var article_title = $("#txtTitle").val().trim();
+        var my_editormd_markdown_doc = testEditor.getMarkdown();
+        var article_pdf = $("#txtPDF").val().trim();
+        var data = {
+            systemid: systemid,
+            document_type: document_type,
+            article_type: article_type,
+            article_title: article_title,
+            article_content: my_editormd_markdown_doc,
+            article_pdf: article_pdf
+        };
+
+        $.ajax({
+            url: "/editor/save",
+            type: "post",
+            dataType: "json",
+            data: data,
+            success: function (result) {
+                //result是服务器返回的json结果
+                if (result.status) {
+                    alert(result.data);
+                    if (isClose) {
                         window.location.href = "/editor/docs/list";
-                    } else {
-                        alert(result.message);
                     }
-                },
-                error: function () {
-                    alert("save调用发生异常，请重试！");
+                    //window.location.href = "/editor/edit?title=" + article_title;
+                } else {
+                    alert(result.message);
                 }
-            });
-
+            },
+            error: function () {
+                alert("submit发生异常，请重试！");
+            }
         });
+    }
 });
 

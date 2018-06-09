@@ -74,19 +74,19 @@
         <property name="sessionFactory" ref="sessionFactoryOracle" />
     </bean>-->
 
-    <!-- 配置Hibernate事务管理器 > -->
+    <!-- 配置Hibernate事务管理器，命名transactionManagerOracle是为了区分spring-neo4j的或者其他数据库的事务注解  -->
     <bean id="transactionManagerOracle" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactoryOracle" />
     </bean>
 
     <!-- 配置事务异常封装 -->
-    <!--<bean id="persistenceExceptionTranslationPostProcessor"
-          class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />-->
+    <bean id="persistenceExceptionTranslationPostProcessor"
+          class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
-    <!-- 事务方式二 注解方式配置事物 -->
-    <!--<tx:annotation-driven transaction-manager="transactionManagerOracle" />-->
+    <!-- 事务开启支持方式一 注解方式配置事物，支持事务注解的(@Transactional) -->
+     <tx:annotation-driven transaction-manager="transactionManagerOracle" />
 
-    <!-- 事务配置方式二： 拦截器方式配置事物 -->
+    <!-- 事务配置开启支持方式二： 拦截器方式配置事物 -->
    <!-- <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="add*" />
