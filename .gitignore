@@ -26,3 +26,6 @@ hs_err_pid*
 .settings/
 target/
 out/
+basic/assets
+basic/docs
+
