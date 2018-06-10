@@ -13,6 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class DocsController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String home() throws Exception {
-        return "redirect:/editor/docs";
+        return "redirect:/editor/docs/list";
     }
 }

@@ -2,7 +2,7 @@ $(function () {
     var xhr;
 
     $(".delete").click(function () {   //点击按钮访问后台servlet
-        var systemid = $("#systemid").html().trim();
+        var systemid = this.title.toString();
         var r = confirm("确定删除吗？");
         if (r) {
             xhr = createXmlHttpRequest();

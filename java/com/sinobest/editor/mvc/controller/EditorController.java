@@ -210,12 +210,12 @@ public class EditorController {
                 res.put("message", "save error, 文章标题为空！！!");
                 return res;
             }
-            if (null == article_content || "".equals(article_content.trim())) {
+            /*if (null == article_content || "".equals(article_content.trim())) {
                 res.put("data", "save error!");
                 res.put("status", 0);
                 res.put("message", "save error, 文章内容为空！！！");
                 return res;
-            }
+            }*/
             //正常数据保存
             BEditorAbstract bEditorAbstract = new BEditorAbstract();
             bEditorAbstract.setCreateTime(LocalDateTime.now());
@@ -224,6 +224,7 @@ public class EditorController {
             bEditorAbstract.setDocumentType(document_type);
             bEditorAbstract.setArticleType(article_type);
             bEditorAbstract.setArticleTitle(article_title);
+            if(article_content != null )
             bEditorAbstract.setArticleContent(article_content);
             logger.warn("{} save article_pdf = {}", article_title, article_pdf);
 

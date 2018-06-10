@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
  *  需要手动添加其值，进行实体保存，可能是工程那里配置不正确。后续版本会跟进处理此BUG
  */
 @Entity
-@Table(name = "B_EDITOR_ABSTRACT", schema = "YY_GXKSH_ZSB")
+@Table(name = "B_EDITOR_ABSTRACT")
 public class BEditorAbstract {
     private String systemid;
     private String createUser;

@@ -156,8 +156,6 @@
             <%
                 }
             %>
-
-
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="<%=basePath%>/editor/edit?title=<%=editTitle %>" title="<%=editTitle %>"
                style="color: #bfcace">编辑</a>
