@@ -1,11 +1,10 @@
 html,body{
     width: 100%;
+    height: 100%;
 }
 
 .header{}
 
-.centre{width:90%; /*border: 1px solid #ddd;*/ margin: 0 auto 15px;}
-.centre .editormd_essay_title{ /*height: 65px;*/ margin: 0 auto 15px; }
 .subtit{
     margin: 6px 0;
     border-bottom-color: #f0f0f0;
@@ -17,6 +16,10 @@ html,body{
     clear: both;
     float: left;
 }
+
+.centre{width:90%; /*border: 1px solid #ddd;*/ margin: 0 auto 15px;}
+.centre .editormd_essay_title{ margin: 0 auto 15px; }
+.centre .editormd_essay_title .systemid{ display:none;}
 .centre .editormd_essay_title .title{
     float: left;
     padding-right: 85px;
@@ -24,7 +27,6 @@ html,body{
 .centre .editormd_essay_title .title_pdf{
     float: left;
 }
-
 .centre .editormd_essay_title select{
     margin: 6px 0;
 }
@@ -50,16 +52,30 @@ html,body{
     height:25px;
 }
 
+.centre .editor_content{
+
+}
+.centre .editor_content #my-editormd textarea{
+   /* display:none;*/
+}
 
 
 button{
     background: url(/images/button/btn_2.gif) repeat-x
 }
 .centre .editormd_submit{
-    padding: 30px 0 14px 300px;
+    margin:0 auto;
+    padding: 30px 0 14px 30px;
     background: url(/images/button/btnarea_bg.gif) repeat-x top;
     text-align: left;
 }
+.center{
+    margin:auto;
+}
+.centre .editormd_submit .center{
+    width: 500px;
+}
+
 .centre .editormd_submit button{
     width: auto;
     height: 45px;
@@ -70,7 +86,18 @@ button{
     font: bold 12px/30px Arial, Helvetica, sans-serif;
     text-align: center;
     cursor: pointer;
-    margin-left: 50px;
 }
+
+.centre .editormd_submit #submit{
+    width: 90px;
+}
+.centre .editormd_submit #submit_close{
+margin-left: 35px;
+}
+.centre .editormd_submit #close{
+    width: 90px;
+    margin-left: 35px;
+}
+
 
 .footer{}

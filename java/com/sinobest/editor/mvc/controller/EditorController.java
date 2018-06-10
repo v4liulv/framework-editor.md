@@ -3,7 +3,6 @@ package com.sinobest.editor.mvc.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.sinobest.editor.mvc.domain.BEditorAbstract;
 import com.sinobest.editor.mvc.service.BEditorAbstractService;
-import com.sinobest.editor.mvc.service.BEditorEditService;
 import com.sinobest.framework.dictionaries.mvc.domain.Dictionaries;
 import com.sinobest.framework.dictionaries.mvc.service.DictionariesService;
 import org.slf4j.Logger;
@@ -39,10 +38,6 @@ public class EditorController {
 
     private Logger logger = LoggerFactory.getLogger(EditorController.class);
 
-    @Deprecated
-    @Resource(name = "BEditorEditService")
-    private BEditorEditService bEditorEditService;
-
     @Resource(name = "BEditorAbstractService")
     private BEditorAbstractService bEditorAbstractService;
 
@@ -72,7 +67,7 @@ public class EditorController {
      * @param title 标题
      */
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String editor(@RequestParam(value = "title", required = true) String title, HttpServletRequest request) throws Exception {
+    public String editor(@RequestParam(value = "title") String title, HttpServletRequest request) throws Exception {
         List<BEditorAbstract> list = bEditorAbstractService.getByField("BEditorAbstract", "ARTICLE_TITLE", title);
         BEditorAbstract bEditorAbstract = null;
         if (list != null && list.size() > 0) {
@@ -103,7 +98,7 @@ public class EditorController {
      * @throws Exception 抛出异常
      */
     @RequestMapping(value = "/docs", method = RequestMethod.GET)
-    public String docs(@RequestParam(value = "title", required = true) String title, HttpServletRequest request) throws Exception {
+    public String docs(@RequestParam(value = "title") String title, HttpServletRequest request) throws Exception {
         System.out.println("title = " + title);
         List<BEditorAbstract> list = bEditorAbstractService.getByField("BEditorAbstract", "ARTICLE_TITLE", title);
         BEditorAbstract bEditorAbstract = null;
@@ -261,11 +256,21 @@ public class EditorController {
      * @param systemid 主键
      */
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String delete(@RequestParam(value = "systemid", required = true) String systemid, HttpServletRequest request) throws Exception {
-        System.out.println("systemid == " + systemid);
+    public String delete(@RequestParam(value = "systemid") String systemid,
+                         HttpServletRequest request,
+                         HttpServletResponse response) throws Exception {
+        logger.info("Delete doc start of systemid:[{}] ", systemid);
         if (systemid != null && !"".equals(systemid.trim())) {
             bEditorAbstractService.delete(bEditorAbstractService.getByField("BEditorAbstract", "SYSTEMID", systemid).get(0));
         }
-        return docsList(request);
+
+        response.setContentType("text/xml;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write("删除成功");
+
+        logger.info("Delete Doc Success of systemid:[{}]  ", systemid);
+        //return docsList(request);
+
+        return null;
     }
 }

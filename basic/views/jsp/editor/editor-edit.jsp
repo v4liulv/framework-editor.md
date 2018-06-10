@@ -48,11 +48,11 @@
     <!--引入样式文件-->
     <link rel="stylesheet" href="<%=basePath%>/plug/EditorMD/css/editormd.css"/>
     <%--<link rel="stylesheet" href="<%=basePath%>/plug/EditorMD/css/editormd.preview.css"/>--%>
-    <link rel="shortcut icon" href="<%=basePath%>images/logo/editor/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="<%=basePath%>/images/logo/editor/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="<%=basePath%>/css/editor/editor-edit.css"/>
     <!--引入js文件-->
     <script src="<%=basePath%>/js/jquery/jquery-1.9.1.js"></script>
-    <script src="<%=basePath%>/plug/EditorMD/editormd.min.js"></script>
+    <script src="<%=basePath%>/plug/EditorMD/editormd.js"></script>
     <script src="<%=basePath%>/plug/EditorMD/lib/marked.min.js"></script>
     <script src="<%=basePath%>/plug/EditorMD/lib/prettify.min.js"></script>
     <script src="<%=basePath%>/plug/EditorMD/lib/raphael.min.js"></script>
@@ -67,20 +67,20 @@
         $(function () {
             $("#document_type").val(<%=documentType%>);
             $("#selType").val(<%=articleType%>);
-        })
-        ;
+        });
     </script>
     <!--js结束-->
 </head>
 
 <body>
 <div class="header"></div>
-<div class="centre" style="">
-    <div class="editormd_essay_title" style="">
-        <p id="systemid" class="systemid" style="display:none;"><%=systemid%></p>
+<div class="centre">
+    <!-- 标题 -->
+    <div class="editormd_essay_title">
+        <p id="systemid" class="systemid"><%=systemid%></p>
         <div class="title">
             <p class="subtit">类型:</p>
-            <select id="document_type" style="" title="">
+            <select id="document_type" title="">
                 <%
                     //循环editor 类型
                     if (bEDITOREDITList_DOCUMENT_TYPE != null && bEDITOREDITList_DOCUMENT_TYPE.size() > 0) {
@@ -99,7 +99,7 @@
 
         <div class="title">
             <p class="subtit">标题:</p>
-            <select id="selType" style="" title="">
+            <select id="selType" title="">
                 <%
                     if (dictionariesList != null && dictionariesList.size() > 0) {
                         //循环editor 类型
@@ -121,22 +121,28 @@
             <p class="subtit">PDF路径(可选):</p>
             <input id="txtPDF" style="" maxlength="100" type="text" value="<%=abstractPdf %>" title=""/>
         </div>
+    </div>
+
+    <!-- 内容 -->
+    <div class="editor_content">
+        <p class="subtit">文章内容</p>
+        <div id="my-editormd">
+            <textarea id="my-editormd-markdown-doc" name="my-editormd-markdown-doc" title=""><%=articleContent%></textarea>
+            <!-- 注意：name属性的值-->
+            <textarea id="my-editormd-html-code" name="my-editormd-html-code" title=""></textarea>
+        </div>
+    </div>
 
 
-    </div>
-    <p class="subtit">文章内容</p>
-    <div id="my-editormd">
-        <textarea id="my-editormd-markdown-doc" name="my-editormd-markdown-doc"
-                  style="display:none;" title=""><%=articleContent%></textarea>
-        <!-- 注意：name属性的值-->
-        <textarea id="my-editormd-html-code" name="my-editormd-html-code" style="display:none;" title="">
-        </textarea>
-    </div>
+    <!-- 提交按钮 -->
     <div class="editormd_submit" style="">
-        <button id="submit" type="submit" style="">保存</button>
-        <button id="submit_close" type="submit" style="">保存并关闭</button>
-        <button id="close" type="submit" style="">关闭</button>
+        <div class="center">
+            <button id="submit" type="submit" style="">保存</button>
+            <button id="submit_close" type="submit" style="">保存并关闭</button>
+            <button id="close" type="submit" style="">关闭</button>
+        </div>
     </div>
+
 </div>
 <div class="footer">
 </div>

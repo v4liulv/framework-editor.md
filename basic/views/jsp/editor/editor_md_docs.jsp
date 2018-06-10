@@ -69,8 +69,11 @@
         }
 
         a:hover {
-            font-family: "宋体";
-            color: #FF0000;
+            /*font-family: "宋体", serif;
+            color: #FF0000;*/
+            color: #fff;
+            background: #2196F3;
+            border-radius: 3px;
         }
 
         hr {
@@ -78,48 +81,11 @@
         }
     </style>
     <script src="<%=basePath%>/js/jquery/jquery-1.9.1.js"></script>
+    <script src="<%=basePath%>/js/editor/editor-list.js"></script>
     <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js">
-    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
     <![endif]-->
     <script type="text/javascript">
-        $(function () {
-            $(".delete").click(function (data) {   //点击按钮访问后台servlet
-                var systemid = $("#systemid").html().trim();
-                var r = confirm("确定删除吗？");
-                if (r == true) {
-                    var xhr = createXmlHttpRequest();
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState == 4) {
-                            if (xhr.status == 200 || xhr.status == 304) {
-                            }
-                        }
-                    };
-                    xhr.open("GET", "/editor/delete?systemid=" + systemid);
-                    xhr.send(null);
-                } else {
-
-                }
-            });
-
-            function createXmlHttpRequest() {
-                var xmlHttp;
-                try {    //Firefox, Opera 8.0+, Safari
-                    xmlHttp = new XMLHttpRequest();
-                } catch (e) {
-                    try {    //Internet Explorer
-                        xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
-                    } catch (e) {
-                        try {
-                            xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-                        } catch (e) {
-                        }
-                    }
-                }
-                return xmlHttp;
-            }
-
-        });
     </script>
 </head>
 <body>
