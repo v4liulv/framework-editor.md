@@ -22,8 +22,8 @@
     <context:component-scan base-package="com.sinobest.framework.base.service"/>
     <context:component-scan base-package="com.sinobest.framework.dictionaries.mvc.dao"/>
     <context:component-scan base-package="com.sinobest.framework.dictionaries.mvc.service"/>
-    <context:component-scan base-package="com.sinobest.editor.mvc.dao"/>
-    <context:component-scan base-package="com.sinobest.editor.mvc.service"/>
+    <context:component-scan base-package="com.sinobest.editor.*.dao"/>
+    <context:component-scan base-package="com.sinobest.editor.*.service"/>
 
     <!-- spring JAX-WS  发布webservice -->
     <!-- *************************************************************************************************** -->

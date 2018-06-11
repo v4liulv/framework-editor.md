@@ -1,5 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.sinobest.framework.dictionaries.mvc.domain.Dictionaries" %>
+<%@ page import="com.sinobest.editor.dictionaries.domain.BEditorDictionaries" %>
 <%@ page import="com.sinobest.editor.mvc.domain.BEditorAbstract" %>
 <%--
   Created by IntelliJ IDEA.
@@ -26,7 +26,7 @@
         //BEditorAbstract List
         List<BEditorAbstract> bEditorAbstractsList = (List<BEditorAbstract>) request.getAttribute("bEditorAbstractsList");
         //Dictionaries List Kind = ARTICLE_TYPE
-        List<Dictionaries> dictionariesList = (List<Dictionaries>) request.getAttribute("dictionariesList");
+        List<BEditorDictionaries> dictionariesList = (List<BEditorDictionaries>) request.getAttribute("dictionariesList");
     %>
 
     <style type="text/css">
@@ -101,9 +101,9 @@
 <%
     if (dictionariesList != null && dictionariesList.size() > 0) {
         //循环editor 类型
-        for (Dictionaries dictionaries : dictionariesList) {
-            String editorType = dictionaries.getCode();
-            String editorTypeValue = dictionaries.getValue();
+        for (BEditorDictionaries bEditorDictionaries : dictionariesList) {
+            String editorType = bEditorDictionaries.getCode();
+            String editorTypeValue = bEditorDictionaries.getValue();
 %>
 <h3 id="<%= editorType%>"><%= editorTypeValue%>
 </h3>

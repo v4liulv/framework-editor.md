@@ -64,7 +64,8 @@
             <list>
                 <value>com.sinobest.framework.base.domain</value>
                 <value>com.sinobest.editor.mvc.domain</value>
-                <value>com.sinobest.framework.dictionaries.mvc.domain</value>
+                <!--<value>com.sinobest.framework.dictionaries.mvc.domain</value>-->
+                <value>com.sinobest.editor.dictionaries.domain</value>
             </list>
         </property>
     </bean>

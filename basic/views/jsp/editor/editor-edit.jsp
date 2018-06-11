@@ -1,4 +1,4 @@
-<%@ page import="com.sinobest.framework.dictionaries.mvc.domain.Dictionaries" %>
+<%@ page import="com.sinobest.editor.dictionaries.domain.BEditorDictionaries" %>
 <%@ page import="com.sinobest.editor.mvc.domain.BEditorAbstract" %>
 <%@ page import="java.util.List" %>
 <%--
@@ -37,9 +37,9 @@
         }
 
         //Dictionaries List Kind = ARTICLE_TYPE
-        List<Dictionaries> dictionariesList = (List<Dictionaries>) request.getAttribute("dictionariesList");
+        List<BEditorDictionaries> dictionariesList = (List<BEditorDictionaries>) request.getAttribute("dictionariesList");
 
-        List<Dictionaries> bEDITOREDITList_DOCUMENT_TYPE = (List<Dictionaries>) request.getAttribute("bEDITOREDITList_DOCUMENT_TYPE");
+        List<BEditorDictionaries> bEDITOREDITList_DOCUMENT_TYPE = (List<BEditorDictionaries>) request.getAttribute("bEDITOREDITList_DOCUMENT_TYPE");
 
 
     %>
@@ -85,9 +85,9 @@
                     //循环editor 类型
                     if (bEDITOREDITList_DOCUMENT_TYPE != null && bEDITOREDITList_DOCUMENT_TYPE.size() > 0) {
                         //循环editor 类型
-                        for (Dictionaries dictionaries : bEDITOREDITList_DOCUMENT_TYPE) {
-                            String editorType = dictionaries.getCode();
-                            String editorTypeValue = dictionaries.getValue();
+                        for (BEditorDictionaries editorDictionaries : bEDITOREDITList_DOCUMENT_TYPE) {
+                            String editorType = editorDictionaries.getCode();
+                            String editorTypeValue = editorDictionaries.getValue();
                 %>
                 <option value="<%=editorType%>"><%=editorTypeValue%></option>
                 <%
@@ -103,9 +103,9 @@
                 <%
                     if (dictionariesList != null && dictionariesList.size() > 0) {
                         //循环editor 类型
-                        for (Dictionaries dictionaries : dictionariesList) {
-                            String editorType = dictionaries.getCode();
-                            String editorTypeValue = dictionaries.getValue();
+                        for (BEditorDictionaries bEditorDictionaries : dictionariesList) {
+                            String editorType = bEditorDictionaries.getCode();
+                            String editorTypeValue = bEditorDictionaries.getValue();
                 %>
                 <option value="<%=editorType%>"><%=editorTypeValue%>
                 </option>

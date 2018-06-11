@@ -20,6 +20,8 @@
         <maven.version>3.3.9</maven.version>
         <github.global.server>github</github.global.server>
 
+        <sinobest.framework.version>1.0.0</sinobest.framework.version>
+
         <currentYear>2018</currentYear>
         <ipprefix>127.0.1.</ipprefix>
         <test.groups>unit</test.groups>
@@ -45,7 +47,7 @@
             <url>D:\libs\maven\</url>
         </repository>
 
-        <!-- 我自己的GitHub版本库 -->
+        <!-- liulv的GitHub版本库 -->
         <repository>
             <id>maven-repo-master</id>
             <url>https://raw.githubusercontent.com/v4liulv/maven-repo/master</url>
@@ -59,23 +61,12 @@
     </repositories>
 
     <dependencies>
-        <!--maven打包编译java工具相关jar-->
-        <!--<dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>2.6</version>
-        </dependency>-->
 
         <!-- framework-ssh -->
         <dependency>
-            <!--
-                <groupId>com.sinobest.kshfx</groupId>
-                <artifactId>kshfx-ssh</artifactId>
-                <version>${project.version}</version>
-            -->
             <groupId>com.sinobest</groupId>
             <artifactId>framework-ssh</artifactId>
-            <version>1.0.0</version>
+            <version>${sinobest.framework.version}</version>
 
             <exclusions>
                 <exclusion>

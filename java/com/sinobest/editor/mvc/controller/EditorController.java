@@ -1,10 +1,10 @@
 package com.sinobest.editor.mvc.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sinobest.editor.dictionaries.domain.BEditorDictionaries;
+import com.sinobest.editor.dictionaries.service.EditorDictionariesService;
 import com.sinobest.editor.mvc.domain.BEditorAbstract;
 import com.sinobest.editor.mvc.service.BEditorAbstractService;
-import com.sinobest.framework.dictionaries.mvc.domain.Dictionaries;
-import com.sinobest.framework.dictionaries.mvc.service.DictionariesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -41,8 +41,8 @@ public class EditorController {
     @Resource(name = "BEditorAbstractService")
     private BEditorAbstractService bEditorAbstractService;
 
-    @Resource(name = "DictionariesService")
-    private DictionariesService dictionariesService;
+    @Resource(name = "EditorDictionariesService")
+    private EditorDictionariesService editorDictionariesService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String home() throws Exception {
@@ -75,13 +75,13 @@ public class EditorController {
         }
 
         //Dictionaries的配置信息EDITOR_TYPE
-        List<Dictionaries> bEDITOREDITList = dictionariesService.getByField("Dictionaries", "KIND", "ARTICLE_TYPE", "order by CODE");
+        List<BEditorDictionaries> bEDITOREDITList = editorDictionariesService.getByField("BEditorDictionaries", "KIND", "ARTICLE_TYPE", "order by CODE");
         if (bEDITOREDITList != null && bEDITOREDITList.size() > 0) {
             request.setAttribute("dictionariesList", bEDITOREDITList);
         }
 
         //Dictionaries的配置信息EDITOR_TYPE
-        List<Dictionaries> bEDITOREDITList_DOCUMENT_TYPE = dictionariesService.getByField("Dictionaries", "KIND", "DOCUMENT_TYPE", "order by CODE");
+        List<BEditorDictionaries> bEDITOREDITList_DOCUMENT_TYPE = editorDictionariesService.getByField("BEditorDictionaries", "KIND", "DOCUMENT_TYPE", "order by CODE");
         if (bEDITOREDITList_DOCUMENT_TYPE != null && bEDITOREDITList_DOCUMENT_TYPE.size() > 0) {
             request.setAttribute("bEDITOREDITList_DOCUMENT_TYPE", bEDITOREDITList_DOCUMENT_TYPE);
         }
@@ -119,10 +119,14 @@ public class EditorController {
     @RequestMapping(value = "/docs/list", method = RequestMethod.GET)
     public String docsList(HttpServletRequest request) throws Exception {
 
-        //Dictionaries的配置信息EDITOR_TYPE
-        List<Dictionaries> bEDITOREDITList = dictionariesService.getByField("Dictionaries", "KIND", "ARTICLE_TYPE", "order by CODE");
-        if (bEDITOREDITList != null && bEDITOREDITList.size() > 0) {
-            request.setAttribute("dictionariesList", bEDITOREDITList);
+        //BEditorDictionaries的配置信息EDITOR_TYPE
+        List<BEditorDictionaries> bEditorDictionaries = editorDictionariesService.getByField(
+                "BEditorDictionaries",
+                "KIND",
+                "ARTICLE_TYPE",
+                "order by CODE");
+        if (bEditorDictionaries != null && bEditorDictionaries.size() > 0) {
+            request.setAttribute("dictionariesList", bEditorDictionaries);
         }
 
         List<BEditorAbstract> bEditorAbstractsList = bEditorAbstractService.getAllEntity("BEditorAbstract");
