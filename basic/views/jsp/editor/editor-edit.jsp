@@ -41,7 +41,6 @@
 
         List<BEditorDictionaries> bEDITOREDITList_DOCUMENT_TYPE = (List<BEditorDictionaries>) request.getAttribute("bEDITOREDITList_DOCUMENT_TYPE");
 
-
     %>
     <title>MarkDown Editor --- <%=articleTitle%></title>
 

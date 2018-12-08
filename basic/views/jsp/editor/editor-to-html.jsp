@@ -11,7 +11,6 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>EditorMDtoHtml</title>
     <%
         System.setProperty("sun.jnu.encoding", "utf-8");
         String path = request.getContextPath();
@@ -21,14 +20,18 @@
         BEditorAbstract bEditorAbstract = (BEditorAbstract) request.getAttribute("bEditorAbstract");
         String abstractContent = "";
         if(bEditorAbstract != null) abstractContent = bEditorAbstract.getArticleContent();
+        String abstractTitle = "";
+        if(bEditorAbstract != null) abstractTitle = bEditorAbstract.getArticleTitle();
     %>
+    <title>EditorMDtoHtml-<%=abstractTitle%></title> <!--jsp 标题 -->
+    <!--jsp 标题图标logo -->
+    <link rel="shortcut icon" href="<%=basePath%>/images/logo/article/article_logo.png" type="image/x-icon"/>
     <!--引入样式文件-->
     <link rel="stylesheet" href="<%=basePath%>/plug/EditorMD/css/editormd.css"/>
     <link rel="stylesheet" href="<%=basePath%>/plug/EditorMD/css/editormd.preview.css"/>
     <link rel="stylesheet" href="<%=basePath%>/css/editor/editor-to-html.css"/>
 
     <!--引入js文件-->
-    <!--<script src="/js/jquery/jquery-1.9.1.js"></script>-->
     <script src="<%=basePath%>/js/jquery/jquery-1.9.1.js"></script>
     <script src="<%=basePath%>/plug/EditorMD/lib/marked.min.js"></script>
     <script src="<%=basePath%>/plug/EditorMD/lib/prettify.min.js"></script>

@@ -3,6 +3,7 @@ package com.sinobest.editor.mvc.domain;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -23,7 +24,7 @@ import java.time.LocalDateTime;
  */
 @Entity
 @Table(name = "B_EDITOR_ABSTRACT")
-public class BEditorAbstract {
+public class BEditorAbstract implements Serializable {
     private String systemid;
     private String createUser;
     private LocalDateTime createTime;
@@ -64,7 +65,7 @@ public class BEditorAbstract {
     }
 
     @Basic
-    @Column(name = "CREATE_TIME", nullable = false)
+    @Column(name = "CREATE_TIME", nullable = false, updatable = false)
     public LocalDateTime getCreateTime() {
         return createTime;
     }
@@ -74,7 +75,7 @@ public class BEditorAbstract {
     }
 
     @Basic
-    @Column(name = "UPDATE_TIME", nullable = true)
+    @Column(name = "UPDATE_TIME", nullable = true, insertable = false)
     public LocalDateTime getUpdateTime() {
         return updateTime;
     }
@@ -210,10 +211,10 @@ public class BEditorAbstract {
 
         BEditorAbstract that = (BEditorAbstract) o;
 
-        if (scbz != that.scbz) return false;
+        if (systemid != null ? !systemid.equals(that.systemid) : that.systemid != null) return false;
+        /*if (scbz != that.scbz) return false;
         if (documentType != that.documentType) return false;
         if (articleType != that.articleType) return false;
-        if (systemid != null ? !systemid.equals(that.systemid) : that.systemid != null) return false;
         if (createUser != null ? !createUser.equals(that.createUser) : that.createUser != null) return false;
         if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
         if (updateTime != null ? !updateTime.equals(that.updateTime) : that.updateTime != null) return false;
@@ -228,7 +229,7 @@ public class BEditorAbstract {
         if (articleContent != null ? !articleContent.equals(that.articleContent) : that.articleContent != null)
             return false;
         if (articlePdf != null ? !articlePdf.equals(that.articlePdf) : that.articlePdf != null)
-            return false;
+            return false;*/
 
         return true;
     }

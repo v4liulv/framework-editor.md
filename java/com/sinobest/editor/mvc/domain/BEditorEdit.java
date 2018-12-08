@@ -3,6 +3,7 @@ package com.sinobest.editor.mvc.domain;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -27,7 +28,7 @@ import java.time.LocalDateTime;
 @Deprecated
 @Entity
 @Table(name = "B_EDITOR_EDIT")
-public class BEditorEdit {
+public class BEditorEdit implements Serializable {
     private String systemid;
     private String createUser;
     private LocalDateTime createTime;

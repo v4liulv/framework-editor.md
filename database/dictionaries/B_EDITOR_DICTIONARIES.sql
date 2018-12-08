@@ -7,12 +7,13 @@ create table B_EDITOR_DICTIONARIES
   code        NVARCHAR2(50) not null,
   value       NVARCHAR2(200) not null,
   code_del    VARCHAR2(1000),
+  state       NUMBER(2) default 1 not null,
   scbz        NUMBER(2) default 0 not null,
   create_user VARCHAR2(50) default 'SYS' not null,
   create_time DATE default SYSDATE not null,
   update_time DATE default SYSDATE
 )
-tablespace PCS_GXKSH_DATA
+tablespace PCS_EDITOR_DATA
 pctfree 10
 initrans 1
 maxtrans 255
@@ -37,11 +38,13 @@ comment on column B_EDITOR_DICTIONARIES.value
 is '字段项的值';
 comment on column B_EDITOR_DICTIONARIES.code_del
 is 'CODE详情';
+comment on column B_EDITOR_DICTIONARIES.state
+is '使用状态，0代表未使用，1代表正常使用';
 -- Create/Recreate primary, unique and foreign key constraints
 alter table B_EDITOR_DICTIONARIES
   add primary key (SYSTEMID)
   using index
-  tablespace PCS_GXKSH_DATA
+  tablespace PCS_EDITOR_DATA
   pctfree 10
   initrans 2
   maxtrans 255
@@ -55,7 +58,7 @@ alter table B_EDITOR_DICTIONARIES
 alter table B_EDITOR_DICTIONARIES
   add unique (KIND, CODE)
   using index
-  tablespace PCS_GXKSH_DATA
+  tablespace PCS_EDITOR_DATA
   pctfree 10
   initrans 2
   maxtrans 255

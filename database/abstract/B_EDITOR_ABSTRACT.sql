@@ -18,7 +18,7 @@ create table B_EDITOR_ABSTRACT
   article_content  CLOB,
   article_pdf      VARCHAR2(300)
 )
-tablespace PCS_GXKSH_DATA
+tablespace PCS_EDITOR_DATA
   pctfree 10
   initrans 1
   maxtrans 255
@@ -57,7 +57,7 @@ comment on column B_EDITOR_ABSTRACT.article_pdf
 alter table B_EDITOR_ABSTRACT
   add primary key (SYSTEMID)
   using index
-  tablespace PCS_GXKSH_DATA
+  tablespace PCS_EDITOR_DATA
   pctfree 10
   initrans 2
   maxtrans 255
@@ -71,7 +71,7 @@ alter table B_EDITOR_ABSTRACT
 alter table B_EDITOR_ABSTRACT
   add unique (ARTICLE_TITLE)
   using index
-  tablespace PCS_GXKSH_DATA
+  tablespace PCS_EDITOR_DATA
   pctfree 10
   initrans 2
   maxtrans 255

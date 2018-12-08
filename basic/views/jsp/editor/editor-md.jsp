@@ -33,6 +33,7 @@
     <script src="<%=basePath%>/plug/EditorMD/lib/flowchart.min.js"></script>
     <script src="<%=basePath%>/plug/EditorMD/lib/jquery.flowchart.min.js"></script>
     <script src="<%=basePath%>/plug/EditorMD/editormd.js"></script>
+
     <script>
         /*html参数获取，并且通过的参数文件获取md文件内容*/
         window.searchMap = location.search.substr(1).split('&').reduce(function (r, it) {

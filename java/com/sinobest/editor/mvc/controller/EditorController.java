@@ -90,7 +90,8 @@ public class EditorController {
     }
 
     /**
-     * 提供Spring Mvc的传递editor.md的文章标题，读取数据库信息，传递md数据内容给前端并转换为HTML前端展示
+     * 提供Spring Mvc的传递editor.md的文章标题，
+     * 读取数据库信息，传递md数据内容给前端并转换为HTML前端展示
      *
      * @param title   editor文章标题
      * @param request HttpServletRequest 用于request.setAttribute进行数据传递到JSP
@@ -110,7 +111,8 @@ public class EditorController {
     }
 
     /**
-     * 文章列表，通过动态读取数据库文章信息表，分类别进行全部文章列表展示
+     * 文章列表
+     * 通过动态读取配置库文章信息表，分类别进行全部文章列表展示
      *
      * @param request HttpServletRequest
      * @return 返回editor/editor-md-docs.jsp
@@ -138,7 +140,8 @@ public class EditorController {
     }
 
     /**
-     * Editor.md 图片上传 保存到对应工程/assets/msg/upload/目录下，并提供Editor.md的图片展示编辑
+     * Editor.md 图片上传
+     * 保存到对应工程/assets/msg/upload/目录下，并提供Editor.md的图片展示编辑
      * <p>
      * 返回图片上传的后成功的结果
      */

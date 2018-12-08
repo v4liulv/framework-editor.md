@@ -5,19 +5,25 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-      http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+      http://www.springframework.org/schema/beans/spring-beans.xsd
       http://www.springframework.org/schema/context
-      http://www.springframework.org/schema/context/spring-context-4.2.xsd
+      http://www.springframework.org/schema/context/spring-context.xsd
       http://www.springframework.org/schema/mvc
-      http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
+      http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- 开启mvc注解 -->
+    <mvc:annotation-driven/>
 
     <!-- 注解扫描包 -->
     <!-- 扫描web包，应用Spring的注解 @Controller -->
-    <context:component-scan base-package="com.sinobest.editor.mvc.controller" />
-    <!-- 开启mvc注解 -->
-    <mvc:annotation-driven />
+    <context:component-scan base-package="com.sinobest.editor.mvc.controller" >
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
 
-    <!-- 静态资源不进行mvc扫描 -->
+    <mvc:default-servlet-handler/>
+
+    <!-- 第三步：配置静态资源 -->
     <mvc:resources location="/assets/" mapping="/assets/**"/>
     <mvc:resources location="/css/" mapping="/css/**"/>
     <mvc:resources location="/js/" mapping="/js/**"/>
@@ -32,6 +38,8 @@
     <!-- 视图解析器 -->
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass"
+                  value="org.springframework.web.servlet.view.JstlView" />
         <property name="prefix" value="/views/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>

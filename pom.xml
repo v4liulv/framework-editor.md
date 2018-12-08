@@ -41,12 +41,6 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
-        <!-- 本地版本库 -->
-        <repository>
-            <id>maven-local</id>
-            <url>D:\libs\maven\</url>
-        </repository>
-
         <!-- liulv的GitHub版本库 -->
         <repository>
             <id>maven-repo-master</id>
