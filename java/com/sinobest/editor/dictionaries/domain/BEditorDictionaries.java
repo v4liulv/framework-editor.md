@@ -1,10 +1,9 @@
 package com.sinobest.editor.dictionaries.domain;
 
-import com.sinobest.framework.base.domain.BaseEntity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @author liulv
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
  */
 @Entity
 @Table(name = "B_EDITOR_DICTIONARIES")
-public class BEditorDictionaries extends BaseEntity{
+public class BEditorDictionaries{
     private String systemid;
     private String kind;
     private String kindDel;
@@ -23,8 +22,8 @@ public class BEditorDictionaries extends BaseEntity{
     private String codeDel;
     private long scbz;
     private String createUser;
-    private LocalDateTime createTime;
-    private LocalDateTime updateTime;
+    private Date createTime;
+    private Date updateTime;
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -110,21 +109,21 @@ public class BEditorDictionaries extends BaseEntity{
 
     @Basic
     @Column(name = "CREATE_TIME", nullable = false)
-    public LocalDateTime getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
     @Basic
     @Column(name = "UPDATE_TIME", nullable = true)
-    public LocalDateTime getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(LocalDateTime updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 

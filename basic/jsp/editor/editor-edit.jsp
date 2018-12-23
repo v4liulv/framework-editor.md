@@ -6,7 +6,8 @@
   User: liulv
   Date: 2018/1/2
   Time: 1:12
-  To change this template use File | Settings | File Templates.
+
+  Description: 编辑读取配置库文档内容
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -23,17 +24,18 @@
         String articleContent = "";
         String articleTitle = "";
         String documentType = "1";
-        String articleType = "1";
+        String articleType;
         String abstractPdf = "";
 
-        if (bEditorAbstract != null){
+        if (bEditorAbstract != null) {
             systemid = bEditorAbstract.getSystemid();
             articleContent = bEditorAbstract.getArticleContent();
             articleTitle = bEditorAbstract.getArticleTitle();
-            documentType =  bEditorAbstract.getDocumentType() + "";
-            articleType =  bEditorAbstract.getArticleType() + "";
-            if(bEditorAbstract.getArticlePdf() != null)
-            abstractPdf = bEditorAbstract.getArticlePdf() + "";
+            documentType = bEditorAbstract.getDocumentType() + "";
+            articleType = bEditorAbstract.getArticleType() + "";
+            if (bEditorAbstract.getArticlePdf() != null) abstractPdf = bEditorAbstract.getArticlePdf() + "";
+        }else {
+            articleType = "0";
         }
 
         //Dictionaries List Kind = ARTICLE_TYPE
@@ -42,7 +44,8 @@
         List<BEditorDictionaries> bEDITOREDITList_DOCUMENT_TYPE = (List<BEditorDictionaries>) request.getAttribute("bEDITOREDITList_DOCUMENT_TYPE");
 
     %>
-    <title>MarkDown Editor --- <%=articleTitle%></title>
+    <title>MarkDown Editor --- <%=articleTitle%>
+    </title>
 
     <!--引入样式文件-->
     <link rel="stylesheet" href="<%=basePath%>/plug/EditorMD/css/editormd.css"/>
@@ -64,8 +67,18 @@
     <!--js开始-->
     <script type="text/javascript">
         $(function () {
+            //文章类型和文章类别赋值
             $("#document_type").val(<%=documentType%>);
-            $("#selType").val(<%=articleType%>);
+            var o = document.getElementById("selType");
+            o.focus();
+            o.value = <%=articleType%>;
+            if ("createEvent" in document) {
+                var evt = document.createEvent("HTMLEvents");
+                evt.initEvent("change", false, true);
+                o.dispatchEvent(evt);
+            } else {
+                o.fireEvent("onchange");
+            }
         });
     </script>
     <!--js结束-->
@@ -76,9 +89,11 @@
 <div class="centre">
     <!-- 标题 -->
     <div class="editormd_essay_title">
-        <p id="systemid" class="systemid"><%=systemid%></p>
+        <p id="systemid" class="systemid"><%=systemid%>
+        </p>
+
         <div class="title">
-            <p class="subtit">类型:</p>
+            <p class="subtit">文件类型:</p>
             <select id="document_type" title="">
                 <%
                     //循环editor 类型
@@ -88,7 +103,8 @@
                             String editorType = editorDictionaries.getCode();
                             String editorTypeValue = editorDictionaries.getValue();
                 %>
-                <option value="<%=editorType%>"><%=editorTypeValue%></option>
+                <option value="<%=editorType%>"><%=editorTypeValue%>
+                </option>
                 <%
                         }
                     }
@@ -97,22 +113,31 @@
         </div>
 
         <div class="title">
-            <p class="subtit">标题:</p>
-            <select id="selType" title="">
-                <%
-                    if (dictionariesList != null && dictionariesList.size() > 0) {
-                        //循环editor 类型
-                        for (BEditorDictionaries bEditorDictionaries : dictionariesList) {
-                            String editorType = bEditorDictionaries.getCode();
-                            String editorTypeValue = bEditorDictionaries.getValue();
-                %>
-                <option value="<%=editorType%>"><%=editorTypeValue%>
-                </option>
-                <%
+            <p class="subtit">文章类别:</p>
+
+            <div class="edit_select">
+                <select title="" id="selType">
+                    <%
+                        if (dictionariesList != null && dictionariesList.size() > 0) {
+                            //循环editor 类型
+                            for (BEditorDictionaries bEditorDictionaries : dictionariesList) {
+                                String editorType = bEditorDictionaries.getCode();
+                                String editorTypeValue = bEditorDictionaries.getValue();
+                    %>
+                    <option value="<%=editorType%>"><%=editorTypeValue%>
+                    </option>
+                    <%
+                            }
                         }
-                    }
-                %>
-            </select>
+                    %>
+                </select>
+                <input id="selValue" type="text" name="" value=""/>
+            </div>
+
+        </div>
+
+        <div class="title">
+            <p class="subtit">标题:</p>
             <input id="txtTitle" style="" maxlength="100" type="text" value="<%=articleTitle %>" title=""/>
         </div>
 
@@ -124,9 +149,10 @@
 
     <!-- 内容 -->
     <div class="editor_content">
-        <p class="subtit">文章内容</p>
+        <%--<p class="subtit">文章内容</p>--%>
         <div id="my-editormd">
-            <textarea id="my-editormd-markdown-doc" name="my-editormd-markdown-doc" title=""><%=articleContent%></textarea>
+            <textarea id="my-editormd-markdown-doc" name="my-editormd-markdown-doc"
+                      title=""><%=articleContent%></textarea>
             <!-- 注意：name属性的值-->
             <textarea id="my-editormd-html-code" name="my-editormd-html-code" title=""></textarea>
         </div>

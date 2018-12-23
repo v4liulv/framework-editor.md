@@ -91,7 +91,10 @@ $(function () {
 
     $("#close").click(
         function () {
-            window.location.href = "/editor/docs/list";
+            //window.location.href = "/editor/docs/list";
+            window.opener=null;
+            window.open('','_self');
+            window.close();
         }
     );
 
@@ -105,15 +108,21 @@ $(function () {
         //读取界面参数
         var systemid = $("#systemid").html().trim();
         var document_type = $("#document_type").val().trim();
-        var article_type = $("#selType").val().trim();
+        var article_type = $("#selType") ? "0": $("#selType").val().trim();
+        var article_value = $("#selValue").val().trim();
         var article_title = $("#txtTitle").val().trim();
         var my_editormd_markdown_doc = testEditor.getMarkdown();
         var article_pdf = $("#txtPDF").val().trim();
+        if(my_editormd_markdown_doc===null || my_editormd_markdown_doc===""){
+            alert("文章内容为空，无法保存");
+            return;
+        }
         //ajax的url调用参数data准备
         var data = {
             systemid: systemid,
             document_type: document_type,
             article_type: article_type,
+            article_value: article_value,
             article_title: article_title,
             article_content: my_editormd_markdown_doc,
             article_pdf: article_pdf
@@ -131,7 +140,10 @@ $(function () {
                 if (result.status) {
                     alert(result.data);
                     if (isClose) {
-                        window.location.href = "/editor/docs/list";
+                        //window.location.href = "/editor/docs/list";
+                        window.opener=null;
+                        window.open('','_self');
+                        window.close();
                     }
                     //window.location.href = "/editor/edit?title=" + article_title;
                 } else {
@@ -143,5 +155,29 @@ $(function () {
             }
         });
     }
+
+    $.fn.selectEditor = function() {
+        return this.each(function() {
+            var self      = this;
+            var $editor   = $(self);
+            var $select   = $editor.find('select');
+            var $input    = $editor.find('input');
+
+            if ($input.size() < 1 || $select.size() < 1) {
+                return
+            }
+
+            $select.on('change', function() {
+                var self = this;
+                var option  = self.options[self.selectedIndex];
+                if (!option) {
+                    return
+                }
+
+                $input.val(option.text)
+            })
+        })
+    };
+    $('.edit_select').selectEditor()
 });
 

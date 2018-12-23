@@ -71,49 +71,35 @@ $(function () {
     }
 });
 
-
 var txtdata;
-
-function fileImport() {
+function fileRead() {
     var selectedFile = document.getElementById("files").files[0];//获取读取的File对象
     var name = selectedFile.name;//读取选中文件的文件名
     var size = selectedFile.size;//读取选中文件的大小
-    //console.log("文件名:" + name + "大小：" + size);
+    console.log("文件名:" + name + "大小：" + size);
 
     var reader = new FileReader();//这里是核心！！！读取操作就是由它完成的。
-    reader.readAsText(selectedFile, 'utf-8');//读取文件的内容，注意编码方式
+    reader.readAsText(selectedFile, 'UTF-8');//读取文件的内容，注意编码方式
 
     reader.onload = function () {
-        //console.log(this.result);//当读取完成之后会回调这个函数，然后此时文件的内容存储到了result中。直接操作即可。
-       //$('<pre>' + this.result + '</pre>').appendTo('body');
-
         txtdata = this.result;
-
-        var data = {
-            fileName: name,
-           fileContext: txtdata
-        };
-
+        console.log(txtdata);//当读取完成之后会回调这个函数，然后此时文件的内容存储到了result中。直接操作即可。
+        $('<pre>' + this.result + '</pre>').appendTo('body');
         self.location.href="/editor_local/edit?fileContext="+txtdata+"?fileName="+name;
-
-
     };
 }
 
-
 $(document).ready(function () {
-//alert("start");
     $("#open").click(function () {//点击导入按钮，使files触发点击事件，然后完成读取文件的操作。
         $("#files").click();
     });
     $("#files").change(function () {
         $("#submit").click();
     });
+});
 
-    $("#export").click(function () {
-        var content = "这是直接使用HTML5进行导出的:" + txtdata;
-        var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
-        saveAs(blob, "file.txt");//saveAs(blob,filename) //仅限于chorme的下载目录里
-//alert("export OK")
-    });
-})
+
+function bnt_clock(obj) {
+    var ul = $(obj).find('ul');
+    ul.slideDown(200);
+}

@@ -4,7 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @author liulv
@@ -27,8 +27,8 @@ import java.time.LocalDateTime;
 public class BEditorAbstract implements Serializable {
     private String systemid;
     private String createUser;
-    private LocalDateTime createTime;
-    private LocalDateTime updateTime;
+    private Date createTime;
+    private Date updateTime;
     private long scbz;
     private String blzd1;
     private String blzd2;
@@ -66,21 +66,21 @@ public class BEditorAbstract implements Serializable {
 
     @Basic
     @Column(name = "CREATE_TIME", nullable = false, updatable = false)
-    public LocalDateTime getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
     @Basic
     @Column(name = "UPDATE_TIME", nullable = true, insertable = false)
-    public LocalDateTime getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(LocalDateTime updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 

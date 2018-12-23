@@ -18,7 +18,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -115,7 +115,7 @@ public class EditorController {
      * 通过动态读取配置库文章信息表，分类别进行全部文章列表展示
      *
      * @param request HttpServletRequest
-     * @return 返回editor/editor-md-docs.jsp
+     * @return 返回editor/editor-list.jsp
      * @throws Exception 抛出异常
      */
     @RequestMapping(value = "/docs/list", method = RequestMethod.GET)
@@ -136,7 +136,7 @@ public class EditorController {
             request.setAttribute("bEditorAbstractsList", bEditorAbstractsList);
         }
 
-        return "editor/editor_md_docs";
+        return "editor/editor_list";
     }
 
     /**
@@ -197,7 +197,8 @@ public class EditorController {
     @ResponseBody
     public JSONObject editorSave(@RequestParam(value = "systemid", required = false) String systemid,
                                  @RequestParam(value = "document_type") Long document_type,
-                                 @RequestParam(value = "article_type") Long article_type,
+                                 @RequestParam(value = "article_type") int article_type,
+                                 @RequestParam(value = "article_value") String article_value,
                                  @RequestParam(value = "article_title") String article_title,
                                  @RequestParam(value = "article_content") String article_content,
                                  @RequestParam(value = "article_pdf", required = false) String article_pdf) {
@@ -205,12 +206,12 @@ public class EditorController {
         JSONObject res = new JSONObject();
         try {
             //异常处理
-            if (article_type == 0L || document_type == 0L) {
+           /* if (article_type == 0L || document_type == 0L) {
                 res.put("data", "save error!");
                 res.put("status", 0);
                 res.put("message", "save error, 请选择文章的类型!");
                 return res;
-            }
+            }*/
             if (null == article_title || "".equals(article_title.trim())) {
                 res.put("data", "save error!");
                 res.put("status", 0);
@@ -223,9 +224,13 @@ public class EditorController {
                 res.put("message", "save error, 文章内容为空！！！");
                 return res;
             }*/
+
+            //判断article_title在字段是否存在，不存在则创建
+            article_type = documentTypeSave(article_value);
+
             //正常数据保存
             BEditorAbstract bEditorAbstract = new BEditorAbstract();
-            bEditorAbstract.setCreateTime(LocalDateTime.now());
+            bEditorAbstract.setCreateTime(new Date());
             bEditorAbstract.setCreateUser("SYS");
             bEditorAbstract.setScbz(0L);
             bEditorAbstract.setDocumentType(document_type);
@@ -242,7 +247,7 @@ public class EditorController {
             //List<BEditorAbstract> list = bEditorAbstractService.getByField("BEditorAbstract", "SYSTEMID", systemid);
             if (systemid != null && !"".equals(systemid.trim())) {
                 bEditorAbstract.setSystemid(systemid);
-                bEditorAbstract.setUpdateTime(LocalDateTime.now());
+                bEditorAbstract.setUpdateTime(new Date());
                 bEditorAbstractService.update(bEditorAbstract);
             } else {
                 bEditorAbstractService.save(bEditorAbstract);
@@ -256,6 +261,36 @@ public class EditorController {
             res.put("message", "保存失败，异常信息如下\n " + e.getMessage());
         }
         return res;
+    }
+
+    /**
+     * 如果文章类别不存在，则保存
+     *
+     * @param article_value 文章值
+     * @return true
+     */
+    public int documentTypeSave(String article_value){
+        BEditorDictionaries editorDictionaries;
+        int article_type;
+        List<BEditorDictionaries> list = editorDictionariesService.getByField("BEditorDictionaries","value", article_value);
+        if(list!= null && list.size()>0 && list.get(0)!=null){
+            article_type = Integer.parseInt(list.get(0).getCode());
+            return article_type;
+        }
+        BEditorDictionaries maxBD = editorDictionariesService.getByHQL("from BEditorDictionaries where " +
+                "code = (select MAX(CAST(code as integer)) from BEditorDictionaries where code <> '9999')").get(0);
+        article_type = Integer.parseInt(maxBD.getCode()) + 1;
+        editorDictionaries = new BEditorDictionaries();
+        editorDictionaries.setKind("ARTICLE_TYPE");
+        editorDictionaries.setKindDel("文章类型");
+        editorDictionaries.setCode(String.valueOf(article_type));
+        editorDictionaries.setValue(String.valueOf(article_value));
+        editorDictionaries.setCreateTime(new Date());
+        editorDictionaries.setCreateUser("sys");
+
+
+        editorDictionariesService.save(editorDictionaries);
+       return article_type;
     }
 
     /**

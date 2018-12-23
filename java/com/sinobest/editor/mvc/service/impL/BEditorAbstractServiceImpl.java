@@ -14,7 +14,10 @@ import org.springframework.stereotype.Service;
  */
 @Service("BEditorAbstractService")
 public class BEditorAbstractServiceImpl extends BaseServiceImpl<BEditorAbstract> implements BEditorAbstractService {
-    @Qualifier("BEditorAbstractDao")
+    private final BEditorAbstractDao bEditorAbstractDao;
+
     @Autowired
-    private BEditorAbstractDao bEditorAbstractDao;
+    public BEditorAbstractServiceImpl(@Qualifier("BEditorAbstractDao") BEditorAbstractDao bEditorAbstractDao) {
+        this.bEditorAbstractDao = bEditorAbstractDao;
+    }
 }

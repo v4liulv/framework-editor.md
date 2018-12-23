@@ -4,7 +4,8 @@
   User: liulv
   Date: 2018/1/2
   Time: 1:12
-  To change this template use File | Settings | File Templates.
+
+  Description: 编辑本地文件jsp
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -37,6 +38,7 @@
     <script src="<%=basePath%>/plug/EditorMD/lib/flowchart.min.js"></script>
     <script src="<%=basePath%>/plug/EditorMD/lib/jquery.flowchart.min.js"></script>
 
+    <script src="<%=basePath%>/js/file/FileSaver.js"></script>
     <script src="<%=basePath%>/js/editor/editor-editlocal.js"></script>
     <!--js开始-->
     <script type="text/javascript">
@@ -50,8 +52,6 @@
 <div class="centre">
     <!-- 标题 -->
     <div class="editormd_essay_title">
-
-
         <div class="title">
             <p class="subtit">标题:</p>
             <input id="txtTitle" style="" maxlength="100" type="text" value="<%=fileName%>" title=""/>
@@ -69,11 +69,11 @@
         </div>
     </div>
 
-
     <!-- 提交按钮 -->
     <div class="editormd_submit" style="">
         <div class="center">
             <button id="submit" type="submit" style="">保存</button>
+            <button id="abort_button" type="submit" style="">终止保存</button>
             <button id="submit_close" type="submit" style="">保存并关闭</button>
             <button id="close" type="submit" style="">关闭</button>
         </div>

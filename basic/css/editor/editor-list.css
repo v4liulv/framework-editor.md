@@ -1,0 +1,426 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    color: rgba(0, 0, 0, .75);
+    font-variant-ligatures: common-ligatures;
+    line-height: 1.67;
+}
+
+body {
+    font-family: "SF Pro Display", Roboto, Noto, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    width: 100%;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 1.57142857;
+    color: #333;
+    background: #f4f4f4;
+}
+
+ul {
+    margin-bottom: 30px;
+    list-style-type: square;
+    margin-left: 18px;
+}
+
+ul li {
+    margin-bottom: 10px;
+    font: "YaHei Consolas Hybrid", Consolas, "微软雅黑", "Meiryo UI", "Malgun Gothic", "Segoe UI", "Trebuchet MS", Helvetica, "Monaco", courier, monospace;
+    font-size: 17px;
+
+}
+
+a {
+    color: #4183c4;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a:hover {
+    /*font-family: "宋体", serif;
+    color: #FF0000;*/
+    color: #fff;
+    background: #2196F3;
+    border-radius: 3px;
+}
+
+hr {
+    color: #bfcace;
+}
+
+h1 {
+    font-size: 2em;
+    margin: .67em 0;
+}
+
+h2 {
+}
+
+.float-left {
+    float: left !important;
+}
+
+.float-right {
+    float: right;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+.container {
+    padding: 8px 0 0;
+    margin: 0 auto;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 1083px;
+}
+
+.container main {
+    width: 100%;
+}
+
+div.content-box {
+    padding: 0.5rem 1.5rem 1.5rem 1.5rem;
+    background-color: #fff;
+}
+
+div.content-box .header-box {
+    border-bottom: 1px solid #e0e0e0;
+    z-index: 9;
+}
+
+div.title-box .title {
+    font-size: 24px;
+    word-wrap: break-word;
+}
+
+div.content-box .info-box {
+    padding-bottom: 10px;
+    position: relative;
+}
+
+div.content-box .content-box {
+    position: relative;
+    padding-top: 16px;
+}
+
+.main-search-box {
+    margin-top: 16px;
+    padding: 16px;
+    font-size: 14px;
+    background-color: #f2f5f7;
+    margin-bottom: 35px;
+    height: 65px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.main-nav-tab-search {
+    margin-top: 0 !important;
+    margin-left: auto;
+}
+
+.search-box button.btn-mp-search {
+    padding: 8px 24px;
+    height: 32px;
+    line-height: 16px;
+
+    background-color: #CA0C16;
+    border-color: #CA0C16;
+    font-size: 14px;
+    color: #FFFFFF;
+    transition: background-color 0.3s ease-in, border-color 0.3s ease-in;
+}
+
+.main-search-box .dropdown .dropdown-toggle::after {
+    pointer-events: auto;
+    position: absolute;
+    right: 8px;
+    top: 12px;
+    color: #cccccc;
+    border-top: .38em solid;
+    border-right: .4em solid transparent;
+    border-bottom: 0;
+    border-left: .4em solid transparent;
+    transition: transform 0.3s ease-in-out;
+}
+
+.dropdown-toggle::after {
+    pointer-events: auto;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: .255em;
+    vertical-align: .255em;
+    content: "";
+    border-top: .3em solid;
+    border-right: .3em solid transparent;
+    border-bottom: 0;
+    border-left: .3em solid transparent;
+}
+
+.main-search-box .dropdown-toggle {
+    position: relative;
+    width: 100%;
+    text-align: left;
+}
+
+.main-search-box input.txt-keyword {
+    width: 280px;
+    padding: 0 4px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    outline: none;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 300px;
+    padding-left: 10px;
+}
+
+.dropdown-selected {
+    width: 100% !important;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #c6c8cc;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    color: #333;
+    text-indent: 10px;
+    margin-bottom: 0 !important;
+}
+
+.dropdown ul {
+    padding: 0;
+    width: 95%;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: #fff;
+    margin-top: 2px;
+    border: 1px solid #c6c8cc;
+    position: absolute;
+    display: none;
+    z-index: 2;
+    margin-left:0px;
+}
+
+.dropdown ul li {
+    list-style: none;
+    text-indent: 10px;
+}
+
+.dropdown ul li a {
+    display: block;
+    color: #282c33;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dropdown ul li:hover {
+    background-color: #f2f6fa;
+}
+
+.dropdown ul li a:active, .dropdown ul li.active a {
+    background-color: #e4e9f2;
+}
+
+.dropdown .dropdown-item{
+    padding-top: 4px;
+    margin-bottom: 1px;
+    font-size: 14px;
+    line-height: 25px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mr32 {
+    margin-right: 32px;
+}
+
+.mr24 {
+    margin-right: 24px;
+}
+
+.mr16 {
+    margin-right: 16px;
+}
+
+.search_input input[type="text"] {
+    padding-right: 27px;
+    font-size: 14px;
+    height: 32px;
+    line-height: 32px;
+}
+
+.main-search-box .dropdown.categorie {
+    width: 214px;
+}
+
+.main-search-box .dropdown .dropdown-toggle {
+    position: relative;
+    width: 100%;
+    text-align: left;
+}
+
+.main-search-box button.btn-dropdown {
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    color: #CCCCCC;
+}
+
+.main-search-box .dropdown.type {
+    width: 96px;
+}
+
+.main-search-box .dropdown.classify {
+    width: 214px;
+}
+
+.btn1 {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    line-height: 1.5;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    border-radius: .2rem;
+}
+
+div.content-box .article-list-box {
+    background-color: #fff;
+}
+
+div.content-box .article-list-box .article-category-item {
+    font-size: 18px;
+}
+
+div.content-box .article-list-box .article-title-list {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    border-top: 2px solid #e0e0e0;
+    padding: 1rem 0 1rem 0;
+    color: #999;
+    font-size: 12px;
+}
+
+.article-title-item {
+    margin-bottom: 22px;
+    border-bottom: 1px dotted #ddd;
+}
+
+div.content-box .article-list-box .article-title-list .article-title-name {
+    margin-bottom: 5px;
+}
+
+div.content-box .article-list-box .article-title-list .article-title-name .article-title-name-txt {
+    font-size: 18px;
+    color: #4f4f4f;
+    margin-bottom: 0;
+}
+
+.article-title-name-txt a {
+    font-size: 18px;
+    color: #4f4f4f;
+    word-wrap: break-word;
+}
+
+.article-title-name-txt a:hover {
+    color: #C92027;
+    cursor: pointer;
+    background: #fef9ff;
+}
+
+div.content-box .article-list-box .article-title-list .article-title-info {
+    color: #999;
+    font-size: 14px;
+    display: flex;
+}
+
+.item-info-left > span {
+    margin-right: 1.5rem;
+}
+
+.item-info-right {
+    margin-left: auto;
+}
+
+.item-info-right a {
+    color: #349EDF;
+    padding: 0px .5rem;
+    border-right: 1px solid #e9e9e9;
+    cursor: pointer;
+}
+
+.item-info-right a:hover {
+    color: #349EDF;
+    background: #e9e9e9;
+}
+
+.item-info-right a .del {
+    color: #CA0C16;
+}
+
+code {
+    white-space: pre-wrap;
+}
+
+span.smallcaps {
+    font-variant: small-caps;
+}
+
+span.underline {
+    text-decoration: underline;
+}
+
+div.column {
+    display: inline-block;
+    vertical-align: top;
+    width: 50%;
+}
+
+.btn {
+    color: rgb(65, 131, 196);
+    background-color: #FFFFFF;
+    border: 0px none;
+/ / 去边框 font-family: "宋体";
+    font-size: 15px;
+/ / text-decoration: underline;
+/ / 加下划线
+}
+
+.btn:hover {
+    color: rgb(255, 255, 255);
+    background: #2196F3;
+    border: none;
+    cursor: hand;
+    cursor: pointer;
+    text-decoration: underline;
+/ / 加下划线
+
+}
+
+.btn:focus {
+    outline: none;
+/ / 去边框
+}
