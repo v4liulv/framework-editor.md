@@ -49,8 +49,6 @@
 
     <!--引入样式文件-->
     <link rel="stylesheet" href="<%=basePath%>/plug/EditorMD/css/editormd.css"/>
-    <%--<link rel="stylesheet" href="<%=basePath%>/plug/EditorMD/css/editormd.preview.css"/>--%>
-    <link rel="shortcut icon" href="<%=basePath%>/images/logo/editor/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="<%=basePath%>/css/editor/editor-edit.css"/>
     <!--引入js文件-->
     <script src="<%=basePath%>/js/jquery/jquery-1.9.1.js"></script>

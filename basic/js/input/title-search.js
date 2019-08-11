@@ -1,8 +1,8 @@
 //点击#search-input外对下拉选项UL进行隐藏
-$(document).on('click',':not(#search-input)',function(){
+/*$(document).on('click',':not(#search-input)',function(){
     $("#search ul").hide();
     return;
-});
+});*/
 
 var search = {
     searchKeyword: function () {

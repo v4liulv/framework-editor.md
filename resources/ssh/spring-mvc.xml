@@ -56,7 +56,6 @@
           class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters">
             <list>
-                &lt;!&ndash; 这里使用string to date可以将dao在jsp到controller转换的时候直接将string格式的日期转换为date类型 &ndash;&gt;
                 <bean class="com.sinobest.kshfx.utils.date.FormatDateTimeUtil" />
             </list>
         </property>

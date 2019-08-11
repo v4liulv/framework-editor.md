@@ -16,22 +16,7 @@
       </configuration>
     </facet>
     <facet type="Spring" name="Spring">
-      <configuration>
-        <fileset id="fileset" name="Spring Application Context" removed="false">
-          <file>file://$MODULE_DIR$/resources/ssh/spring-hibernate.xml</file>
-          <file>file://$MODULE_DIR$/resources/ssh/spring-jdbc-service.xml</file>
-          <file>file://$MODULE_DIR$/resources/ssh/spring-mvc.xml</file>
-          <file>file://$MODULE_DIR$/resources/ssh/spring.xml</file>
-        </fileset>
-      </configuration>
-    </facet>
-    <facet type="hibernate" name="Hibernate">
-      <configuration>
-        <datasource-map>
-          <unit-entry name="sessionFactoryOracle" value="d9520b47-7f29-4789-9c75-fa897222b89c" />
-        </datasource-map>
-        <naming-strategy-map />
-      </configuration>
+      <configuration />
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">

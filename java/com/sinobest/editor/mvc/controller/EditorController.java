@@ -131,12 +131,19 @@ public class EditorController {
             request.setAttribute("dictionariesList", bEditorDictionaries);
         }
 
+        //Dictionaries的配置信息EDITOR_TYPE
+        List<BEditorDictionaries> bEditorDictionariesBytype = editorDictionariesService.getByField(
+                "BEditorDictionaries", "KIND", "DOCUMENT_TYPE", "order by CODE");
+        if (bEditorDictionariesBytype != null && bEditorDictionariesBytype.size() > 0) {
+            request.setAttribute("dictionariesByTypeList", bEditorDictionariesBytype);
+        }
+
         List<BEditorAbstract> bEditorAbstractsList = bEditorAbstractService.getAllEntity("BEditorAbstract");
         if (bEditorAbstractsList != null && bEditorAbstractsList.size() > 0) {
             request.setAttribute("bEditorAbstractsList", bEditorAbstractsList);
         }
 
-        return "editor/editor_list";
+        return "editor/editor-list";
     }
 
     /**

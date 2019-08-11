@@ -49,10 +49,10 @@ $(function () {
     //设置发送的数据，開始和server端交互
     //注册相关事件回调处理函数
     function showInfo() {
-        if(xhr.readyState === 4){
-            if(xhr.status === 200 || xhr.status === 304){
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200 || xhr.status === 304) {
                 alert(xhr.responseText);
-            }else{
+            } else {
                 alert("数据返回失败! 状态代码为:" + xhr.status + ", 状态信息:" + xhr.statusText);
             }
         }
@@ -65,41 +65,65 @@ $(function () {
     function onError(e) {
         alert("请求onError调用了，出现异常:" + e.toString());
     }
-    
+
     function onProgress() {
-        
     }
-});
 
-var txtdata;
-function fileRead() {
-    var selectedFile = document.getElementById("files").files[0];//获取读取的File对象
-    var name = selectedFile.name;//读取选中文件的文件名
-    var size = selectedFile.size;//读取选中文件的大小
-    console.log("文件名:" + name + "大小：" + size);
+    var txtdata;
+    function fileRead() {
+        var selectedFile = document.getElementById("files").files[0];//获取读取的File对象
+        var name = selectedFile.name;//读取选中文件的文件名
+        var size = selectedFile.size;//读取选中文件的大小
+        console.log("文件名:" + name + "大小：" + size);
 
-    var reader = new FileReader();//这里是核心！！！读取操作就是由它完成的。
-    reader.readAsText(selectedFile, 'UTF-8');//读取文件的内容，注意编码方式
+        var reader = new FileReader();//这里是核心！！！读取操作就是由它完成的。
+        reader.readAsText(selectedFile, 'UTF-8');//读取文件的内容，注意编码方式
 
-    reader.onload = function () {
-        txtdata = this.result;
-        console.log(txtdata);//当读取完成之后会回调这个函数，然后此时文件的内容存储到了result中。直接操作即可。
-        $('<pre>' + this.result + '</pre>').appendTo('body');
-        self.location.href="/editor_local/edit?fileContext="+txtdata+"?fileName="+name;
-    };
-}
+        reader.onload = function () {
+            txtdata = this.result;
+            console.log(txtdata);//当读取完成之后会回调这个函数，然后此时文件的内容存储到了result中。直接操作即可。
+            $('<pre>' + this.result + '</pre>').appendTo('body');
+            self.location.href = "/editor_local/edit?fileContext=" + txtdata + "?fileName=" + name;
+        };
+    }
 
-$(document).ready(function () {
     $("#open").click(function () {//点击导入按钮，使files触发点击事件，然后完成读取文件的操作。
         $("#files").click();
     });
+
     $("#files").change(function () {
         $("#submit").click();
     });
+
+    $(document).on("click",".classify,.type",function(e){
+        var ul = $(this).find('ul');
+        ul.toggle();
+        e.stopPropagation();
+
+        var input = $(this).find('input');
+        var button = $(this).find('button');
+        ul.show();
+
+        $(this).find('ul a').click(function () {
+            button.html($(this).text());
+            button.css("color", "#333");
+            input.val($(this).text());
+            $(this).parent().addClass('active');
+            $(this).parent().siblings().removeClass('active')
+            $(this).closest('ul').slideUp(200);
+            return false;
+        });
+
+        window.event ? e.cancelBubble = true : e.stopPropagation();
+    });
+
+    //点击其他地方，隐藏下拉ul
+    $(document).click(function () {
+        $(".dropdown").find('ul').hide();
+    });
+
 });
 
 
-function bnt_clock(obj) {
-    var ul = $(obj).find('ul');
-    ul.slideDown(200);
-}
+
+
