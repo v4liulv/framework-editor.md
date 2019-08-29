@@ -53,6 +53,7 @@
     <link rel="stylesheet" href="<%=basePath%>/css/editor/editor-list.css"/>
 
     <script src="<%=basePath%>/js/jquery/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="<%=basePath%>/plug/spin-2.1.0/jquery.spin.merge.js"></script>
     <script src="<%=basePath%>/js/editor/editor-list.js"></script>
     <script src="<%=basePath%>/js/file/FileSaver.js"></script>
     <!--[if lt IE 9]>

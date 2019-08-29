@@ -18,12 +18,8 @@
     <context:property-placeholder location="classpath:ssh/config.properties"/>
 
     <!-- 自动扫描dao和service包(自动注入) -->
-    <context:component-scan base-package="com.sinobest.framework.base.dao"/>
-    <context:component-scan base-package="com.sinobest.framework.base.service"/>
-    <context:component-scan base-package="com.sinobest.framework.dictionaries.mvc.dao"/>
-    <context:component-scan base-package="com.sinobest.framework.dictionaries.mvc.service"/>
-    <context:component-scan base-package="com.sinobest.editor.*.dao"/>
-    <context:component-scan base-package="com.sinobest.editor.*.service"/>
+    <context:component-scan base-package="com.sinobest.**.dao"/>
+    <context:component-scan base-package="com.sinobest.**.service"/>
 
     <!-- spring JAX-WS  发布webservice -->
     <!-- *************************************************************************************************** -->

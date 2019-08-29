@@ -1,4 +1,10 @@
 $(function () {
+    /**
+     * 导航点击后选择变色
+     */
+    $(".nav li").removeClass("title_colo");
+    $(".nav .incr_doc").addClass("title_colo");
+
     var xhr;
 
     $(".delete").click(function () {   //点击按钮访问后台servlet
@@ -70,6 +76,7 @@ $(function () {
     }
 
     var txtdata;
+
     function fileRead() {
         var selectedFile = document.getElementById("files").files[0];//获取读取的File对象
         var name = selectedFile.name;//读取选中文件的文件名
@@ -95,7 +102,9 @@ $(function () {
         $("#submit").click();
     });
 
-    $(document).on("click",".classify,.type",function(e){
+    //条件过滤输入框， 点击下拉切换
+    //unbind("click") 清除之前的事件绑定
+    $('.search_input').unbind("click").on("click", ".classify,.type", function (e) {
         var ul = $(this).find('ul');
         ul.toggle();
         e.stopPropagation();
@@ -104,7 +113,19 @@ $(function () {
         var button = $(this).find('button');
         ul.show();
 
-        $(this).find('ul a').click(function () {
+        $(this).find('ul a').unbind("click").one('click', function () {
+
+            button.html($(this).text());
+            button.css("color", "#333");
+            input.val($(this).parent().val());
+            $(this).parent().addClass('active');
+            $(this).parent().siblings().removeClass('active')
+            $(this).closest('ul').slideUp(200);
+            return false;
+        });
+        /*  $(this).find('ul a').click(function () {
+            alert(code);
+
             button.html($(this).text());
             button.css("color", "#333");
             input.val($(this).text());
@@ -112,7 +133,7 @@ $(function () {
             $(this).parent().siblings().removeClass('active')
             $(this).closest('ul').slideUp(200);
             return false;
-        });
+        });*/
 
         window.event ? e.cancelBubble = true : e.stopPropagation();
     });
@@ -120,6 +141,37 @@ $(function () {
     //点击其他地方，隐藏下拉ul
     $(document).click(function () {
         $(".dropdown").find('ul').hide();
+    });
+
+    $('.btn-mp-search').click(function () {
+        var $wrapper = $('#article-list');
+        //查询参数
+        var type = $(".type input").val();
+        var classify = $(".classify input").val();
+        var title = $("#search-input").val();
+        var param = {};
+        if (type !== '0' && type !== "" && type !== "全部" ) param.documentType = type;
+        if (classify !== '0' && classify !== "" && classify !== "全部") param.articleType = classify;
+        if (title !== null) param.articleTitle = title;
+        $wrapper.spinModal(true);
+
+        $.ajax({
+            url: "/editor/query",
+            type: "post",
+            async: true,
+            cache: false,    //不允许缓存
+            /*dataType: "json",*/
+            data: /* $("#form-add").serialize(),*/param,
+            success: function (result) {
+                $("#article-list").html("");
+                $("#article-list").html(result);
+                $wrapper.spinModal(false);
+            },
+            error: function () {
+                alert("查询 error");
+                $wrapper.spinModal(false);
+            }
+        });
     });
 
 });

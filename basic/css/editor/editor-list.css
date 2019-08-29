@@ -93,8 +93,9 @@ div.content-box .header-box {
 }
 
 div.title-box .title {
-    font-size: 24px;
+    font-size: 32px;
     word-wrap: break-word;
+    text-align: center;
 }
 
 div.content-box .info-box {
@@ -109,7 +110,8 @@ div.content-box .content-box {
 
 .main-search-box {
     margin-top: 16px;
-    padding: 16px;
+    padding-top: 16px;
+    padding-bottom: 20px;
     font-size: 14px;
     background-color: #f2f5f7;
     margin-bottom: 35px;
@@ -123,15 +125,15 @@ div.content-box .content-box {
 }
 
 .search-box button.btn-mp-search {
-    padding: 8px 24px;
+   /* padding: 8px 24px 8px 19px;
     height: 32px;
     line-height: 16px;
 
-    background-color: #CA0C16;
-    border-color: #CA0C16;
+    background-color: #005cae;
+    border-color: #004991;
     font-size: 14px;
     color: #FFFFFF;
-    transition: background-color 0.3s ease-in, border-color 0.3s ease-in;
+    transition: background-color 0.3s ease-in, border-color 0.3s ease-in;*/
 }
 
 .main-search-box .dropdown .dropdown-toggle::after {
@@ -257,8 +259,19 @@ div.content-box .content-box {
 .search_input input[type="text"] {
     padding-right: 27px;
     font-size: 14px;
-    height: 32px;
-    line-height: 32px;
+    height: 37px;
+    line-height: 37px;
+}
+
+.search_input .label{
+    height: 36px;
+}
+
+.search_input label{
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    padding-left: 15px;
 }
 
 .main-search-box .dropdown.categorie {
@@ -279,11 +292,14 @@ div.content-box .content-box {
 }
 
 .main-search-box .dropdown.type {
-    width: 96px;
+    width: 150px;
 }
 
 .main-search-box .dropdown.classify {
     width: 214px;
+}
+
+.main-search-box .dropdown.title {
 }
 
 .btn1 {
@@ -399,7 +415,7 @@ div.column {
     width: 50%;
 }
 
-.btn {
+/*.btn {
     color: rgb(65, 131, 196);
     background-color: #FFFFFF;
     border: 0px none;
@@ -407,9 +423,9 @@ div.column {
     font-size: 15px;
 / / text-decoration: underline;
 / / 加下划线
-}
+}*/
 
-.btn:hover {
+/*.btn:hover {
     color: rgb(255, 255, 255);
     background: #2196F3;
     border: none;
@@ -418,9 +434,10 @@ div.column {
     text-decoration: underline;
 / / 加下划线
 
-}
+}*/
 
+/*
 .btn:focus {
     outline: none;
 / / 去边框
-}
+}*/

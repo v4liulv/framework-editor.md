@@ -46,7 +46,7 @@
     <!-- 大对象处理器  -->
     <bean id="appDefLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" />
 
-    <!-- 配置hibernate session工厂 -->
+ <!-- 配置hibernate session工厂 -->
     <bean id="sessionFactoryOracle" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="hibernateProperties">
@@ -62,10 +62,7 @@
         </property>
         <property name="packagesToScan"> <!--自动扫描注解方式配置的hibernate类文件-->
             <list>
-                <value>com.sinobest.framework.base.domain</value>
-                <value>com.sinobest.editor.mvc.domain</value>
-                <!--<value>com.sinobest.framework.dictionaries.mvc.domain</value>-->
-                <value>com.sinobest.editor.dictionaries.domain</value>
+                <value>com.sinobest.**.domain</value>
             </list>
         </property>
     </bean>

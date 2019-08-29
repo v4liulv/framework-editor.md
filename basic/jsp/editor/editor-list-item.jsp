@@ -15,14 +15,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-
-    <meta name="generator" content="pandoc"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
-    <title>DOC-概要汇总</title>
     <%
         System.setProperty("sun.jnu.encoding", "utf-8");
         String path = request.getContextPath();
@@ -33,25 +26,13 @@
         List<BEditorAbstract> bEditorAbstractsList = (List<BEditorAbstract>) request.getAttribute("bEditorAbstractsList");
         Set<String> abstractEditorTypeSet;
         abstractEditorTypeSet = new HashSet<>();
-        for (BEditorAbstract bEditorAbstract : bEditorAbstractsList) {
-            abstractEditorTypeSet.add(bEditorAbstract.getArticleType() + "");
+        if(bEditorAbstractsList != null){
+            for (BEditorAbstract bEditorAbstract : bEditorAbstractsList) {
+                abstractEditorTypeSet.add(bEditorAbstract.getArticleType() + "");
+            }
+            application.setAttribute("abstractEditorTypeSet", abstractEditorTypeSet);
         }
-        application.setAttribute("abstractEditorTypeSet", abstractEditorTypeSet);
     %>
-
-
-    <link rel="shortcut icon" href="<%=basePath%>/images/logo/editor/favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" href="<%=basePath%>/css/editor/editor-list.css"/>
-
-    <script src="<%=basePath%>/js/jquery/jquery-1.9.1.js"></script>
-    <script src="<%=basePath%>/js/editor/editor-list.js"></script>
-    <script src="<%=basePath%>/js/file/FileSaver.js"></script>
-    <!--[if lt IE 9]>
-    <script src="<%=basePath%>/js/html5shiv-printshiv.min.js"></script>
-    <![endif]-->
-    <script src="<%=basePath%>/js/input/title-search.js"></script>
-    <script type="text/javascript">
-    </script>
 </head>
 <body>
 <div class="article-list-item">

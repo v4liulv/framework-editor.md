@@ -8,7 +8,7 @@
                             http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- 引入属性文件 -->
-    <context:property-placeholder location="classpath:config.properties" />
+    <context:property-placeholder location="classpath*:/**/*config.properties" />
 
     <!--配置数据源-本地化配置方式，不能走数据中间件的方式 -->
     <!-- destroy-method=”close”的作用就是当数据库连接不使用的时候,就把该连接重新放到数据池中,方便下次使用调用.很关键的一个元素。 -->

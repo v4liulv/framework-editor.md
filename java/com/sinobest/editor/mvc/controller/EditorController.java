@@ -5,6 +5,7 @@ import com.sinobest.editor.dictionaries.domain.BEditorDictionaries;
 import com.sinobest.editor.dictionaries.service.EditorDictionariesService;
 import com.sinobest.editor.mvc.domain.BEditorAbstract;
 import com.sinobest.editor.mvc.service.BEditorAbstractService;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -322,5 +324,58 @@ public class EditorController {
         //return docsList(request);
 
         return null;
+    }
+
+    @RequestMapping(value = "/query", method = RequestMethod.POST)
+    public ModelAndView queryList(BEditorAbstract bEditorAbstract, HttpServletRequest request) throws Exception {
+        ModelAndView mav = new ModelAndView();
+        //BEditorDictionaries的配置信息EDITOR_TYPE
+        List<BEditorDictionaries> bEditorDictionaries = editorDictionariesService.getByField(
+                "BEditorDictionaries",
+                "KIND",
+                "ARTICLE_TYPE",
+                "order by CODE");
+
+        //Dictionaries的配置信息EDITOR_TYPE
+        List<BEditorDictionaries> bEditorDictionariesBytype = editorDictionariesService.getByField(
+                "BEditorDictionaries", "KIND", "DOCUMENT_TYPE", "order by CODE");
+
+        String ArticleTitle = bEditorAbstract.getArticleTitle();
+        long documentType = bEditorAbstract.getDocumentType();
+        long articleType = bEditorAbstract.getArticleType();
+
+        StringBuilder sqlSB = new StringBuilder();
+        sqlSB.append("select * from B_EDITOR_ABSTRACT");
+        if(documentType != 0 && articleType != 0){
+            sqlSB.append(" where document_type = ").append(documentType).append(" and article_Type = ").append(articleType);
+        }else if(documentType == 0 && articleType != 0){
+            sqlSB.append(" where article_Type = ").append(articleType);
+        }else if(documentType != 0){
+            sqlSB.append(" where document_Type = ").append(documentType);
+        }
+
+        if((documentType != 0 || articleType != 0) && StringUtils.isNotBlank(ArticleTitle)){
+            sqlSB.append(" and").append(" Article_Title like '%").append(ArticleTitle).append("%'");
+        }else if(StringUtils.isNotBlank(ArticleTitle)){
+            sqlSB.append(" where Article_Title like '%").append(ArticleTitle).append("%'");
+        }
+
+        System.out.println("==============================");
+        System.out.println(sqlSB);
+
+        List<BEditorAbstract> bEditorAbstractsList = bEditorAbstractService.findByHQLNative(sqlSB.toString() ,BEditorAbstract.class);
+
+        mav.addObject("modeName", "文档");
+        if (bEditorDictionaries != null && bEditorDictionaries.size() > 0) {
+            mav.addObject("dictionariesList", bEditorDictionaries);
+        }
+        if (bEditorDictionariesBytype != null && bEditorDictionariesBytype.size() > 0) {
+            mav.addObject("dictionariesByTypeList", bEditorDictionariesBytype);
+        }
+        if (bEditorAbstractsList != null && bEditorAbstractsList.size() > 0) {
+            mav.addObject("bEditorAbstractsList", bEditorAbstractsList);
+        }
+        mav.setViewName("editor/editor-list-item");
+        return mav;
     }
 }
