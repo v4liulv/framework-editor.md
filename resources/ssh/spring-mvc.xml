@@ -12,17 +12,10 @@
       http://www.springframework.org/schema/mvc
       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+    <context:component-scan base-package="com.sinobest.**.controller" />
+
     <!-- 开启mvc注解 -->
     <mvc:annotation-driven/>
-
-    <!-- 注解扫描包 -->
-    <!-- 扫描web包，应用Spring的注解 @Controller -->
-    <context:component-scan base-package="com.sinobest.editor.mvc.controller" >
-        <context:include-filter type="annotation"
-                                expression="org.springframework.stereotype.Controller" />
-    </context:component-scan>
-
-    <mvc:default-servlet-handler/>
 
     <!-- 第三步：配置静态资源 -->
     <mvc:resources location="/assets/" mapping="/assets/**"/>
@@ -51,13 +44,4 @@
         <property name="maxUploadSize" value="1024000000"/>
     </bean>
 
-    <!--<mvc:annotation-driven conversion-service="conversionService" />
-    <bean id="conversionService"
-          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-        <property name="converters">
-            <list>
-                <bean class="com.sinobest.kshfx.utils.date.FormatDateTimeUtil" />
-            </list>
-        </property>
-    </bean>-->
 </beans>

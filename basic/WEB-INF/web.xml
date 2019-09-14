@@ -5,26 +5,15 @@
          version="3.0">
     <display-name>demoSpringMvc</display-name>
 
-    <!-- Log4j 日志 需要放在ContextLoaderListener前面-->
-    <!-- 需要添加spring-web.jar包，否则用发生错误信息 -->
+    <!-- logback-begin -->
+    <context-param>
+        <param-name>logbackConfigLocation</param-name>
+        <param-value> classpath:logback.xml</param-value>
+    </context-param>
     <listener>
-        <!-- Spring 5.x已经废除了此方法，使用log4g2代替 -->
-        <!--<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>-->
-        <listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
+        <listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
     </listener>
-    <filter>
-        <filter-name>log4jServletFilter</filter-name>
-        <filter-class>org.apache.logging.log4j.web.Log4jServletFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>log4jServletFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
-        <dispatcher>INCLUDE</dispatcher>
-        <dispatcher>ERROR</dispatcher>
-    </filter-mapping>
-    <!-- log4j2-end -->
+    <!-- logback-end -->
 
     <!-- 防止内存泄露 -->
     <listener>
@@ -34,16 +23,6 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-
-    <!-- 指定监听器加载的log4j配置文件 -->
-    <context-param>
-        <param-name>log4j</param-name>
-        <param-value>classpath:log4j2.xml</param-value>
-    </context-param>
-    <context-param>
-        <param-name>log4jRefreshInterval</param-name>
-        <param-value>6000</param-value>
-    </context-param>
 
     <!-- JX-WS 用于配置地址栏请求路径 -->
     <servlet>
@@ -58,7 +37,7 @@
     <!-- spring hibernate -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:ssh/spring.xml,classpath:ssh/spring-hibernate.xml</param-value>
+        <param-value>classpath:ssh/spring*.xml</param-value>
     </context-param>
     <!-- openSessionInView配置 -->
     <filter>

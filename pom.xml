@@ -95,7 +95,7 @@
         <testSourceDirectory>java-test</testSourceDirectory>
 
         <!--maven打包时如何把包下面的非java文件配置文件也包含，通过resources-resource下配置directory和includes实现 -->
-        <resources>
+        <!--<resources>
             <resource>
                 <directory>resources</directory>
                 <includes>
@@ -113,7 +113,7 @@
                     <include>**/*.dtd</include>
                 </includes>
             </resource>
-        </resources>
+        </resources>-->
 
         <plugins>
             <!-- Maven github 可选 -->

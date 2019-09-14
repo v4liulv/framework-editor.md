@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author liulv
  * @date 2018/6/11
  */
-@Transactional(value = "transactionManagerOracle")
+@Transactional()
 @Repository(value = "EditorDictionariesDao")
 public class EditorDictionariesDaoImp extends BaseDaoImpl<BEditorDictionaries> implements EditorDictionariesDao{
 }
