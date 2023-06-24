@@ -66,6 +66,8 @@
 字段配置表的创建创建语句和插入数据语句在${project.basedir}/database/dictionaries目录下，再配置库进行相关表的创建和数据导入。
 **注意：** 其中ARTICLE_TYPE文章类型可以根据自己需要进行修改调整。
 
+可扩展通过web插入
+
 ## Editor Docs List配置表
 
 
@@ -75,7 +77,7 @@ Editor文章表创建语句在${project.basedir}/database/abstract目录下，�
 
 
 # WEB访问默认地址
-http://id:port/editor,如http://localhost:8080/editor
+    http://id:port/editor,如http://localhost:8080/editor
 
 
 # 如何新增文章、编辑文章、删除文章、新增文章类型

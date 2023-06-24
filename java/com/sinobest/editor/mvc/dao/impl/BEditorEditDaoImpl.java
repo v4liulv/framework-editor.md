@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2018/1/1
  */
 @Deprecated
-@Transactional(value = "transactionManagerOracle")
+@Transactional(value = "transactionManagerJdbc")
 @Repository(value = "BEditorEditDao")
 public class BEditorEditDaoImpl extends BaseDaoImpl<BEditorEdit> implements BEditorEditDao {
 }

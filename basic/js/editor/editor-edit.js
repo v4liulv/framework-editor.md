@@ -104,6 +104,10 @@ $(function () {
         }
     );
 
+    function setSystemid(systemid) {
+        $("#systemid").html(systemid);
+    }
+
     function save(isClose) {
         //读取界面参数
         var systemid = $("#systemid").html().trim();
@@ -138,6 +142,7 @@ $(function () {
             success: function (result) {
                 //result是服务器返回的json结果
                 if (result.status) {
+                    //alert();
                     alert(result.data);
                     if (isClose) {
                         //window.location.href = "/editor/docs/list";
@@ -145,6 +150,7 @@ $(function () {
                         window.open('','_self');
                         window.close();
                     }
+                    setSystemid(result.systemid)
                     //window.location.href = "/editor/edit?title=" + article_title;
                 } else {
                     alert(result.message);

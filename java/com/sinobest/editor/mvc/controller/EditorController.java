@@ -66,11 +66,11 @@ public class EditorController {
     /**
      * 编辑文章
      *
-     * @param title 标题
+     * @param systemid 文章主键
      */
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String editor(@RequestParam(value = "title") String title, HttpServletRequest request) throws Exception {
-        List<BEditorAbstract> list = bEditorAbstractService.getByField("BEditorAbstract", "ARTICLE_TITLE", title);
+    public String editor(@RequestParam(value = "systemid") String systemid, HttpServletRequest request) throws Exception {
+        List<BEditorAbstract> list = bEditorAbstractService.getByField("BEditorAbstract", "SYSTEMID", systemid);
         BEditorAbstract bEditorAbstract = null;
         if (list != null && list.size() > 0) {
             bEditorAbstract = list.get(0);
@@ -252,6 +252,7 @@ public class EditorController {
             if (null != article_pdf) {
                 bEditorAbstract.setArticlePdf(article_pdf);
             }
+
             //如果标题存在则更新其标题的文章内容
             //List<BEditorAbstract> list = bEditorAbstractService.getByField("BEditorAbstract", "SYSTEMID", systemid);
             if (systemid != null && !"".equals(systemid.trim())) {
@@ -261,8 +262,11 @@ public class EditorController {
             } else {
                 bEditorAbstractService.save(bEditorAbstract);
             }
-            logger.info("{} Save Succession. ", article_title);
-            res.put("data", "保存成功!");
+            logger.info("systemid：{}", bEditorAbstract.getSystemid());
+            logger.info("{}-{} Save Succession. ", systemid, article_title);
+            logger.info("{}-{} Save Succession. ", systemid, article_title);
+            res.put("data", "保存成功");
+            res.put("systemid", bEditorAbstract.getSystemid());
             res.put("status", 1);
         } catch (Exception e) {
             e.printStackTrace();

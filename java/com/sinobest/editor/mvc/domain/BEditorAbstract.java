@@ -1,5 +1,8 @@
 package com.sinobest.editor.mvc.domain;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -55,6 +58,7 @@ public class BEditorAbstract implements Serializable {
     }
 
     @Basic
+    @ColumnDefault("'admin'")
     @Column(name = "CREATE_USER", nullable = false, length = 50)
     public String getCreateUser() {
         return createUser;

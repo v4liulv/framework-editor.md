@@ -1,5 +1,6 @@
 package com.sinobest.editor.mvc.domain;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -56,6 +57,7 @@ public class BEditorEdit implements Serializable {
     }
 
     @Basic
+    @ColumnDefault("'admin'")
     @Column(name = "CREATE_USER", nullable = false, length = 50, columnDefinition="varchar(50) default 'SYS'")
     public String getCreateUser() {
         return createUser;
@@ -66,7 +68,7 @@ public class BEditorEdit implements Serializable {
     }
 
     @Basic
-    @Column(name = "CREATE_TIME", nullable = false, updatable = false)
+    @Column(name = "CREATE_TIME", nullable = false, updatable = false, columnDefinition="timestamp default current_timestamp")
     public LocalDateTime getCreateTime() {
         return createTime;
     }

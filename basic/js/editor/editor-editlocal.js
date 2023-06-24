@@ -104,6 +104,10 @@ $(function () {
         }
     );
 
+    function setSystemid(systemid) {
+        $("#systemid").html(systemid);
+    }
+
     function save(isClose) {
         //读取界面参数
         var fileContent = editor.getMarkdown();
@@ -118,18 +122,19 @@ $(function () {
             window.close();
         }
         //如果您正在生成大型文件，则可以实现一个中止按钮来中止文件分发器。
-        /*abort_button.addEventListener("click", function(){
+        abort_button.addEventListener("click", function(){
             fileSaver.abort();
-        }, false);*/
+        }, false);
 
 
-       /* $.ajax({
+        /*$.ajax({
             url: "/editor_local/save",
             type: "post",
             dataType: "json",
             data: data,
             success: function (result) {
                 if (result.status) {
+                    setSystemid(result.systemid)
                     alert(result.name);
                     alert(result.data);
                     var content = result.data;

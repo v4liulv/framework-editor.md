@@ -85,7 +85,7 @@
                                                        title="${bal.articlePdf}"
                                                        target="_Blank">PDF</a>
                                                 </c:if>
-                                                <a href="<%=basePath%>/editor/edit?title=${bal.articleTitle}"
+                                                <a href="<%=basePath%>/editor/edit?systemid=${bal.systemid}"
                                                    title="${bal.articleTitle}" target="_Blank">编辑</a>
                                                 &nbsp;
                                                 <p id="systemid" style="display: none">${bal.systemid}

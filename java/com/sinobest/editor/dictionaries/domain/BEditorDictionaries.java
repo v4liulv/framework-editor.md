@@ -1,5 +1,6 @@
 package com.sinobest.editor.dictionaries.domain;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -98,6 +99,7 @@ public class BEditorDictionaries{
     }
 
     @Basic
+    @ColumnDefault("'admin'")
     @Column(name = "CREATE_USER", nullable = false, length = 50)
     public String getCreateUser() {
         return createUser;
