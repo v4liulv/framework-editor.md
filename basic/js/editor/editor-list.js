@@ -57,7 +57,7 @@ $(function () {
     function showInfo() {
         if (xhr.readyState === 4) {
             if (xhr.status === 200 || xhr.status === 304) {
-                alert(xhr.responseText);
+                tempAlert(xhr.responseText);
             } else {
                 alert("数据返回失败! 状态代码为:" + xhr.status + ", 状态信息:" + xhr.statusText);
             }

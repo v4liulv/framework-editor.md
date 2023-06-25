@@ -113,21 +113,27 @@ $(function () {
         var fileContent = editor.getMarkdown();
         var fileName = $("#txtTitle").val().trim();
         var abort_button = $("#abort_button");
-        var blob = new Blob([fileContent], {type: "text/plain;charset=utf-8"});
-        saveAs(blob, fileName);
+        //var blob = new Blob([fileContent], {type: "text/plain;charset=utf-8"});
+       /* var reader = new FileReader();
+        var fileContentStr="";
+        reader.readAsText(blob, 'utf-8');
+        reader.onload = function (e) {
+            fileContentStr = reader.result;
+        }*/
+        /*saveAs(blob, fileName);*/
 
-        if(isClose){
-            window.opener=null;
-            window.open('','_self');
-            window.close();
-        }
         //如果您正在生成大型文件，则可以实现一个中止按钮来中止文件分发器。
-        abort_button.addEventListener("click", function(){
+       /*abort_button.addEventListener("click", function(){
             fileSaver.abort();
-        }, false);
+        }, false);*/
 
+        //ajax的url调用参数data准备
+        var data = {
+            fileName: fileName,
+            fileContent: fileContent
+        };
 
-        /*$.ajax({
+        $.ajax({
             url: "/editor_local/save",
             type: "post",
             dataType: "json",
@@ -135,14 +141,16 @@ $(function () {
             success: function (result) {
                 if (result.status) {
                     setSystemid(result.systemid)
-                    alert(result.name);
-                    alert(result.data);
-                    var content = result.data;
-                    var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
-                    saveAs(blob, result.name);//saveAs(blob,filename) //仅限于chorme的下载目录里
-
+                    //alert(result.name);
+                    tempAlert(result.data);
+                    //var content = result.data;
+                    //var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
+                    //saveAs(blob, result.name);//saveAs(blob,filename) //仅限于chorme的下载目录里
                     if (isClose) {
-                        window.location.href = "/editor/docs/list";
+                        //window.location.href = "/editor/docs/list";
+                        window.opener=null;
+                        window.open('','_self');
+                        window.close();
                     }
                 } else {
                     alert(result.message);
@@ -151,7 +159,13 @@ $(function () {
             error: function () {
                 alert("submit发生异常，请重试！");
             }
-        });*/
+        });
+
+        if(isClose){
+            window.opener=null;
+            window.open('','_self');
+            window.close();
+        }
     }
 });
 

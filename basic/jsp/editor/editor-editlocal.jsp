@@ -38,6 +38,7 @@
     <script src="<%=basePath%>/plug/EditorMD/lib/flowchart.min.js"></script>
     <script src="<%=basePath%>/plug/EditorMD/lib/jquery.flowchart.min.js"></script>
 
+    <script src="<%=basePath%>/js/public/tools.js"></script>
     <script src="<%=basePath%>/js/file/FileSaver.js"></script>
     <script src="<%=basePath%>/js/editor/editor-editlocal.js"></script>
     <!--js开始-->

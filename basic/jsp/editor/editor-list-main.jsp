@@ -107,7 +107,7 @@
                           enctype="multipart/form-data"
                           style="margin:0px;display: inline">
                         <input type="button" id="open" value="打开本地文档" class="btn"/>
-                        <input type="file" name="file" id="files" style="display:none"/>
+                        <input type="file" accept=".md,text" name="file" id="files" style="display:none"/>
                         <input type="submit" id="submit" value="submit" style="display:none"/>
                     </form>
                 </div>

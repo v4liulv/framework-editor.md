@@ -189,10 +189,10 @@ public class BEditorAbstract implements Serializable {
     }
 
     /**
-     * text 字段类型
+     * text或longtext 大文本字段类型
      */
     @Basic
-    @Column(name = "ARTICLE_CONTENT", columnDefinition="text", nullable = false)
+    @Column(name = "ARTICLE_CONTENT", columnDefinition="longtext", nullable = false)
     public String getArticleContent() {
         return articleContent;
     }

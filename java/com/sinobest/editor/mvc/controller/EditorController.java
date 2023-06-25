@@ -247,10 +247,10 @@ public class EditorController {
             bEditorAbstract.setArticleTitle(article_title);
             if(article_content != null )
             bEditorAbstract.setArticleContent(article_content);
-            logger.warn("{} save article_pdf = {}", article_title, article_pdf);
 
-            if (null != article_pdf) {
+            if (!article_pdf.trim().equals("")) {
                 bEditorAbstract.setArticlePdf(article_pdf);
+                logger.warn("{} save article_pdf = {}", article_title, article_pdf);
             }
 
             //如果标题存在则更新其标题的文章内容

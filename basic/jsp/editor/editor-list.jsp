@@ -43,6 +43,7 @@
     <script type="text/javascript" charset="utf-8"
             src="${basePath}/plug/datatables-bootstrap4/datatables.min.js"></script>
 
+    <script src="<%=basePath%>/js/public/tools.js"></script>
     <script src="${basePath}/js/editor/editor-list.js"></script>
     <script src="${basePath}/js/file/FileSaver.js"></script>
     <![endif]-->
