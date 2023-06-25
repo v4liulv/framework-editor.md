@@ -259,12 +259,12 @@ public class EditorController {
                 bEditorAbstract.setSystemid(systemid);
                 bEditorAbstract.setUpdateTime(new Date());
                 bEditorAbstractService.update(bEditorAbstract);
+                logger.info("update doc {}-{}  Succession. ", systemid, article_title);
             } else {
                 bEditorAbstractService.save(bEditorAbstract);
+                logger.info("add doc {} , save Succession. ", article_title);
             }
-            logger.info("systemid：{}", bEditorAbstract.getSystemid());
-            logger.info("{}-{} Save Succession. ", systemid, article_title);
-            logger.info("{}-{} Save Succession. ", systemid, article_title);
+
             res.put("data", "保存成功");
             res.put("systemid", bEditorAbstract.getSystemid());
             res.put("status", 1);
