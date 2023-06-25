@@ -188,8 +188,11 @@ public class BEditorAbstract implements Serializable {
         this.articleAbstract = articleAbstract;
     }
 
+    /**
+     * text 字段类型
+     */
     @Basic
-    @Column(name = "ARTICLE_CONTENT", nullable = false)
+    @Column(name = "ARTICLE_CONTENT", columnDefinition="text", nullable = false)
     public String getArticleContent() {
         return articleContent;
     }
