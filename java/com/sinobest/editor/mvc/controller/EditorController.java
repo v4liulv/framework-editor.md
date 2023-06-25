@@ -95,15 +95,15 @@ public class EditorController {
      * 提供Spring Mvc的传递editor.md的文章标题，
      * 读取数据库信息，传递md数据内容给前端并转换为HTML前端展示
      *
-     * @param title   editor文章标题
+     * @param systemid   editor文章id
      * @param request HttpServletRequest 用于request.setAttribute进行数据传递到JSP
      * @return 返回对应Spring MVC配置的jsp editor/editor-to-html
      * @throws Exception 抛出异常
      */
     @RequestMapping(value = "/docs", method = RequestMethod.GET)
-    public String docs(@RequestParam(value = "title") String title, HttpServletRequest request) throws Exception {
-        System.out.println("title = " + title);
-        List<BEditorAbstract> list = bEditorAbstractService.getByField("BEditorAbstract", "ARTICLE_TITLE", title);
+    public String docs(@RequestParam(value = "systemid") String systemid, HttpServletRequest request) throws Exception {
+        logger.info("打开文章 systemid ：{} \n", systemid);
+        List<BEditorAbstract> list = bEditorAbstractService.getByField("BEditorAbstract", "SYSTEMID", systemid);
         BEditorAbstract bEditorAbstract = null;
         if (list != null && list.size() > 0) {
             bEditorAbstract = list.get(0);

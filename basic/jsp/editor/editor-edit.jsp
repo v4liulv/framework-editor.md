@@ -61,6 +61,7 @@
     <script src="<%=basePath%>/plug/EditorMD/lib/flowchart.min.js"></script>
     <script src="<%=basePath%>/plug/EditorMD/lib/jquery.flowchart.min.js"></script>
 
+    <script src="<%=basePath%>/js/public/tools.js"></script>
     <script src="<%=basePath%>/js/editor/editor-edit.js"></script>
     <!--js开始-->
     <script type="text/javascript">
@@ -82,7 +83,7 @@
     <!--js结束-->
 </head>
 
-<body>
+<body style="position: relative">
 <div class="header"></div>
 <div class="centre">
     <!-- 标题 -->

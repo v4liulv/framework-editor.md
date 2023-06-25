@@ -142,8 +142,8 @@ $(function () {
             success: function (result) {
                 //result是服务器返回的json结果
                 if (result.status) {
-                    //alert();
-                    alert(result.data);
+                    //alert(result.data);
+                    tempAlert(result.data);
                     if (isClose) {
                         //window.location.href = "/editor/docs/list";
                         window.opener=null;

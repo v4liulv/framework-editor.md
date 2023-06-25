@@ -52,7 +52,7 @@
                                         <div class="article-title-name">
                                             <p class="article-title-name-txt">
                                                 <c:if test="${bal.documentType == '1'}">
-                                                    <a href="<%=basePath%>/editor/docs?title=${bal.articleTitle}"
+                                                    <a href="<%=basePath%>/editor/docs?systemid=${bal.systemid}"
                                                        title="${bal.articleTitle}"
                                                        target="_Blank">
                                                             ${bal.articleTitle}
